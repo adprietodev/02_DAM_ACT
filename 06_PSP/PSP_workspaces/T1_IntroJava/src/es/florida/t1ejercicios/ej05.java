@@ -28,6 +28,8 @@ public class ej05 {
 			}
 			
 		}while(num1 != num2);
+		
+		keyBoard.close();
 
 	}
 

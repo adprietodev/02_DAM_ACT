@@ -15,6 +15,7 @@ public class ej13 {
 		
 		System.out.println(String.format("%.1f", fahrenheit)+" grados fahrenheit");
 
+		keyBoard.close();
 	}
 
 }

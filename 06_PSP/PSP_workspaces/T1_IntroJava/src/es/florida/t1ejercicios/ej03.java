@@ -17,6 +17,8 @@ public class ej03 {
 		int num2 = Integer.parseInt(keyBoard.nextLine());
 		
 		System.out.print("La suma es "+(num1+num2));
+		
+		keyBoard.close();
 
 	}
 

@@ -53,6 +53,8 @@ public class ej09 {
 				System.out.print("Este numero no corresponde a ningún mes");
 			
 		}
+		
+		keyBoard.close();
 
 	}
 

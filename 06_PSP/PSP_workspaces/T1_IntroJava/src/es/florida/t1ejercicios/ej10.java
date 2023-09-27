@@ -29,6 +29,8 @@ public class ej10 {
 		if(num == 10) System.out.print("Este numero corresponde al mes de Octubre");
 		if(num == 11) System.out.print("Este numero corresponde al mes de Noviembre");
 		if(num == 12) System.out.print("Este numero corresponde al mes de Diciembre");
+		
+		keyBoard.close();
 
 	}
 

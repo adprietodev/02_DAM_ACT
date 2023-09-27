@@ -2,17 +2,16 @@ package es.florida.t1ejercicios;
 
 import java.util.Scanner;
 
-public class ej12 {
+public class ej26 {
 
+	public static int notas[] = new int[10];
+	public static int countSus = 0;
+	public static int countApro = 0;
+	public static int countNot = 0;
+	public static int countSobr = 0;
+	public static int countMatr = 0;
+	
 	public static void main(String[] args) {
-		
-		
-		int notas[] = new int[10];
-		int countSus = 0;
-		int countApro = 0;
-		int countNot = 0;
-		int countSobr = 0;
-		int countMatr = 0;
 		
 		Scanner keyBoard = new Scanner(System.in);
 		
@@ -28,19 +27,19 @@ public class ej12 {
 		for(int i=0; i < 10; i++ ) {
 			switch(notas[i]) {
 				case 1,2,3,4 :
-					countSus++;
+					sumSuspenso();
 				break;
 				case 5,6:
-					countApro++;
+					sumAprovado();
 				break;
 				case 7,8:
-					countNot++;
+					sumNotable();
 				break;
 				case 9:
-					countSobr++;
+					sumSobresaliente();
 				break;
 				case 10:
-					countMatr++;
+					sumMatricula();
 				break;
 			}
 		}
@@ -52,7 +51,23 @@ public class ej12 {
 		System.out.println("Las matriculas son: "+countMatr);
 		
 		keyBoard.close();
-
+		
+	}
+	
+	public static int sumSuspenso() {
+		return countSus++;
+	}
+	public static int sumAprovado() {
+		return countApro++;
+	}
+	public static int sumNotable() {
+		return countNot++;
+	}
+	public static int sumSobresaliente() {
+		return countSobr++;
+	}
+	public static int sumMatricula() {
+		return countMatr++;
 	}
 
 }

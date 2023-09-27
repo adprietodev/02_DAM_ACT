@@ -13,6 +13,8 @@ public class ej15 {
 		double volumen = (4/3)*Math.PI*Math.pow(radio, 3);
 		
 		System.out.println("Volumen de la esfera: "+String.format("%.3f", volumen));
+		
+		keyBoard.close();
 
 	}
 

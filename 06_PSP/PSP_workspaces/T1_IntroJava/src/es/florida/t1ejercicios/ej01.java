@@ -10,6 +10,7 @@ public class ej01 {
 		int num2 = 32;
 		
 		System.out.print("La suma es "+(num1+num2));
+		
 
 	}
 

@@ -14,6 +14,7 @@ public class ej02 {
 		
 		System.out.print("Hola "+name+", bienvenido");
 
+		keyBoard.close();
 	}
 
 }

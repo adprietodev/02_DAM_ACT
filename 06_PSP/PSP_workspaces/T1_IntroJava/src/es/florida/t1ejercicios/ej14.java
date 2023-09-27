@@ -16,6 +16,8 @@ public class ej14 {
 		System.out.println("Diametro: "+String.format("%.3f", diametro));
 		
 		System.out.println("Area: "+String.format("%.3f", area));
+		
+		keyBoard.close();
 
 	}
 

@@ -28,6 +28,8 @@ public class ej08 {
 		} else {
 			System.out.print("Este numero no corresponde a ningún mes");
 		}
+		
+		keyBoard.close();
 
 	}
 

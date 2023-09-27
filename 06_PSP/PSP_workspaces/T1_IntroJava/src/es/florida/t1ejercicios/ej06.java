@@ -29,6 +29,7 @@ public class ej06 {
 		
 		System.out.println("La suma de los numeros es: "+sum);
 
+		keyBoard.close();
 	}
 
 }

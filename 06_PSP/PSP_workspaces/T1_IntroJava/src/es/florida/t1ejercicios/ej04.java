@@ -26,6 +26,7 @@ public class ej04 {
 			System.out.print("El "+num1+" es igual que "+num2);
 		}
 
+		keyBoard.close();
 	}
 
 }

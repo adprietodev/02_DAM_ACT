@@ -2,7 +2,7 @@ package es.florida.t1ejercicios;
 
 import java.util.Scanner;
 
-public class ej11 {
+public class ej27 {
 
 	public static void main(String[] args) {
 		
@@ -14,9 +14,14 @@ public class ej11 {
 		
 		int dni = Integer.parseInt(keyBoard.nextLine());
 		
-		System.out.print(dni+"-"+letra[dni%23]);
+		System.out.print(calculateDni(dni,letra[dni%23]));
 		
 		keyBoard.close();
+
+	}
+	
+	public static String calculateDni(int dni, char letter) {
+		return dni+"-"+letter;
 	}
 
 }
