@@ -1,6 +1,7 @@
 package es.florida.tema1;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ProgramFiles {
@@ -14,6 +15,7 @@ public class ProgramFiles {
 		System.out.print("¿Que directorio quieres ver? ");
 		
 		File nameDir = new File(insKB.nextLine());
+		
 		
 		System.out.print("¿Que extensiones quieres buscar? ");
 		
@@ -48,6 +50,29 @@ public class ProgramFiles {
 		} else {
 			System.out.print("El directorio " + nameDir.getName() + " no existe");
 		}
+		
+		Scanner lec;
+		
+		try {
+			lec = new Scanner(new File("passtest.txt"));
+			
+			while(lec.hasNext()) {
+				System.out.println(lec.next());
+			}
+			
+			/*FileReader fichero = new FileReader("passtest.txt");
+			int linea = fichero.read();
+			ArrayList<Character> caracteres = new ArrayList<Character>();
+			while(linea != -1) {
+				System.out.println((char)linea);
+				linea = fichero.read();
+			}
+			
+			fichero.close();*/
+		} catch(Exception e) {
+			System.out.println(e);
+		}
+		
 		
 		
 	}
