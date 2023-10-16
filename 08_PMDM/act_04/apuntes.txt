@@ -1,0 +1,81 @@
+<View style={styles.container}>
+      <View style={{ flexDirection: "row" }}>
+        {/*Cuadrado*/}
+        <View width={100} height={100} backgroundColor={"yellow"} />
+      </View>
+      <View style={{ flexDirection: "row" }}>
+        {/*Triangulo*/}
+        <View
+          width={0}
+          height={0}
+          backgroundColor={"transparent"}
+          borderStyle={"solid"}
+          borderTopWidth={0}
+          borderRightWidth={45}
+          borderBottomWidth={90}
+          borderLeftWidth={45}
+          borderTopColor={"transparent"}
+          borderRightColor={"transparent"}
+          borderBottomColor={"red"}
+          borderLeftColor={"transparent"}
+        />
+      </View>
+      <View style={{ flexDirection: "row" }}>
+        {/*Circulo*/}
+        <View
+          width={100}
+          height={100}
+          borderRadius={100 / 2}
+          backgroundColor={"green"}
+        />
+      </View>
+      {/*Cuadrado bordes redondos*/}
+      <View style={{ flexDirection: "row" }}>
+        <View
+          width={100}
+          height={100}
+          borderTopLeftRadius={150}
+          borderTopRightRadius={0}
+          borderBottomLeftRadius={0}
+          borderBottomRightRadius={0}
+          borderColor={"red"}
+          borderWidth={1}
+          backgroundColor={"red"}
+        />
+        <View
+          width={100}
+          height={100}
+          borderTopLeftRadius={0}
+          borderTopRightRadius={150}
+          borderBottomLeftRadius={0}
+          borderBottomRightRadius={0}
+          borderColor={"black"}
+          borderWidth={1}
+          backgroundColor={"black"}
+        />
+      </View>
+      <View style={{ flexDirection: "row" }}>
+        <View
+          width={100}
+          height={100}
+          borderTopLeftRadius={0}
+          borderTopRightRadius={0}
+          borderBottomLeftRadius={150}
+          borderBottomRightRadius={0}
+          borderColor={"black"}
+          borderWidth={1}
+          backgroundColor={"black"}
+        />
+        <View
+          width={100}
+          height={100}
+          borderTopLeftRadius={0}
+          borderTopRightRadius={0}
+          borderBottomLeftRadius={0}
+          borderBottomRightRadius={150}
+          borderColor={"red"}
+          borderWidth={1}
+          backgroundColor={"red"}
+        />
+      </View>
+    </View>
