@@ -17,7 +17,7 @@ public class Sumador {
 	
 	public void writeResult(String result) {
 		File fileResult = new File("resultado.txt");
-		
+		//fileResult.delete();
 		try {
 			FileWriter fW = new FileWriter(fileResult, true);
 			BufferedWriter bW = new BufferedWriter(fW);
@@ -34,6 +34,7 @@ public class Sumador {
 		
 		
 	}
+	
 	
 	public void clearFile() {
 		File fileResult = new File("resultado.txt");
