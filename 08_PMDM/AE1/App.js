@@ -1,22 +1,87 @@
 import { useState } from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 
 export default function App() {
   const [text, setText] = useState("0");
   const [startNum, setStartNum] = useState("true");
   let [num01, setNum01] = useState(0);
-  //let [num02, setNum02] = useState(0);
   const [operator, setOp] = useState("");
+
+  const props = [
+    ["sen", "cos", "tan", "deg"],
+    ["ln", "log", "\u03C0", "rad"],
+    ["1/X", "!", "√", "/"],
+    [7, 8, 9, "x"],
+    [4, 5, 6, "-"],
+    [1, 2, 3, "+"],
+    ["C", 0, ",", "="],
+  ];
+
+  function checkBtnPress(c) {
+    if (c === "sen") {
+      setText(Math.sin(rad()).toString().replace(".", ","));
+      setStartNum("true");
+    }
+    if (c === "cos") {
+      setText(Math.cos(rad()).toString().replace(".", ","));
+      setStartNum("true");
+    }
+    if (c === "tan") {
+      setText(Math.tan(rad()).toString().replace(".", ","));
+      setStartNum("true");
+    }
+    if (c === "deg") {
+      setText(deg().toString().replace(".", ","));
+      setStartNum("true");
+    }
+    if (c === "ln") {
+      setText(Math.log(checkFloat()).toString().replace(".", ","));
+      setStartNum("true");
+    }
+    if (c === "log") {
+      setText(Math.log10(checkFloat()).toString().replace(".", ","));
+      setStartNum("true");
+    }
+    if (c === "\u03C0") {
+      setText(Math.PI.toString().replace(".", ","));
+      setStartNum("true");
+    }
+    if (c === "rad") {
+      setText(rad().toString().replace(".", ","));
+      setStartNum("true");
+    }
+    if (c === "1/X") {
+      setText((1 / checkFloat()).toString().replace(".", ","));
+      setStartNum("true");
+    }
+    if (c === "!") {
+      setText(fact(parseInt(checkFloat())).toString().replace(".", ","));
+      setStartNum("true");
+    }
+    if (c === "√") {
+      setText(Math.sqrt(checkFloat()).toString().replace(".", ","));
+      setStartNum("true");
+    }
+    if (c === "/" || c === "x" || c === "-" || c === "+") {
+      saveOp(c);
+    }
+    if (!Number.isNaN(c)) {
+      for (let i = 0; i <= 9; i++) {
+        if (c === i) {
+          addNum(c.toString());
+        }
+      }
+    }
+    if (c === "C") clear();
+    if (c === ",") addComma();
+    if (c === "=") result();
+  }
 
   function clear() {
     setText("0");
     setStartNum("true");
     setNum01(0);
-    //setNum02(0);
   }
-
-  //∫console.log(rad);
-
   function addNum(character) {
     if (startNum === "true") {
       setText(character);
@@ -30,7 +95,6 @@ export default function App() {
     setOp(op);
     setStartNum("true");
   }
-
   function addComma() {
     if (!text.split("").includes(",") && text != "0") {
       setText(text + ",");
@@ -58,9 +122,9 @@ export default function App() {
         break;
     }
     setNum01(parseFloat(text));
+    setOp("");
     setStartNum("true");
   }
-
   let rad = () => checkFloat() * (Math.PI / 180);
   let deg = () => checkFloat() / (180 / Math.PI);
   let fact = (n) => {
@@ -70,7 +134,6 @@ export default function App() {
       return n * fact(n - 1);
     }
   };
-
   let checkFloat = () => {
     if (text.split("").includes(",")) {
       return parseFloat(text.replace(",", "."));
@@ -80,526 +143,83 @@ export default function App() {
   };
 
   return (
-    <View
-      style={{
-        justifyContent: "center",
-        alignSelf: "center",
-        marginVertical: 80,
-      }}
-    >
-      <Text style={{ fontSize: 45, fontWeight: "bold" }}>Calculadora</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Calculadora</Text>
 
       <View style={{ marginTop: 5 }}>
-        <View
-          style={{
-            flexDirection: "row",
-            marginBottom: 10,
-            height: 70,
-            width: 340,
-            borderRadius: 4,
-            borderWidth: 1,
-          }}
-        >
+        <View style={styles.screen}>
           <Text style={{ fontSize: 50, textAlign: "right", flex: 1 }}>
             {text}
           </Text>
         </View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={() => {
-                setText(Math.sin(rad()).toString().replace(".", ","));
-                setStartNum("true");
-              }}
-            >
-              <Text>sen</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={() => {
-                setText(Math.cos(rad()).toString().replace(".", ","));
-                setStartNum("true");
-              }}
-            >
-              <Text>cos</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={() => {
-                setText(Math.tan(rad()).toString().replace(".", ","));
-                setStartNum("true");
-              }}
-            >
-              <Text>tan</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={() => {
-                setText(deg().toString().replace(".", ","));
-                setStartNum("true");
-              }}
-            >
-              <Text>deg</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={() => {
-                setText(Math.log(checkFloat()).toString().replace(".", ","));
-                setStartNum("true");
-              }}
-            >
-              <Text>ln</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={() => {
-                setText(Math.log10(checkFloat()).toString().replace(".", ","));
-                setStartNum("true");
-              }}
-            >
-              <Text>log</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={() => {
-                setText(Math.PI.toString().replace(".", ","));
-                setStartNum("true");
-              }}
-            >
-              <Text>&Pi;</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={() => {
-                setText(rad().toString().replace(".", ","));
-                setStartNum("true");
-              }}
-            >
-              <Text>rad</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={() => {
-                setText((1 / checkFloat()).toString().replace(".", ","));
-                setStartNum("true");
-              }}
-            >
-              <Text>1/X</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={() => {
-                setText(fact(parseInt(checkFloat())));
-                setStartNum("true");
-              }}
-            >
-              <Text>!</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={() => {
-                setText(Math.sqrt(checkFloat()));
-                setStartNum("true");
-              }}
-            >
-              <Text>√</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={() => saveOp("/")}
-            >
-              <Text>/</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "blue",
-              }}
-              onPress={() => addNum("7")}
-            >
-              <Text>7</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "blue",
-              }}
-              onPress={() => addNum("8")}
-            >
-              <Text>8</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "blue",
-              }}
-              onPress={() => addNum("9")}
-            >
-              <Text>9</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={() => saveOp("x")}
-            >
-              <Text>x</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "blue",
-              }}
-              onPress={() => addNum("4")}
-            >
-              <Text>4</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "blue",
-              }}
-              onPress={() => addNum("5")}
-            >
-              <Text>5</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "blue",
-              }}
-              onPress={() => addNum("6")}
-            >
-              <Text>6</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={() => saveOp("-")}
-            >
-              <Text>-</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "blue",
-              }}
-              onPress={() => addNum("1")}
-            >
-              <Text>1</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "blue",
-              }}
-              onPress={() => addNum("2")}
-            >
-              <Text>2</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "blue",
-              }}
-              onPress={() => addNum("3")}
-            >
-              <Text>3</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={() => saveOp("+")}
-            >
-              <Text>+</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={clear}
-            >
-              <Text>C</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "blue",
-              }}
-              onPress={() => addNum("0")}
-            >
-              <Text>0</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={addComma}
-            >
-              <Text>,</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ padding: 3 }}>
-            <TouchableOpacity
-              style={{
-                borderRadius: 8,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlignVertical: "center",
-                width: 80,
-                height: 80,
-                backgroundColor: "gray",
-              }}
-              onPress={result}
-            >
-              <Text>=</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
       </View>
+      {props.map((row, index) => (
+        <View key={index} style={{ flexDirection: "row" }}>
+          {row.map((e, index) => {
+            if (typeof e === "number") {
+              return (
+                <View key={index} style={{ padding: 3 }}>
+                  <TouchableOpacity
+                    style={styles.btnBlue}
+                    onPress={() => checkBtnPress(e)}
+                  >
+                    <Text>{e}</Text>
+                  </TouchableOpacity>
+                </View>
+              );
+            } else {
+              return (
+                <View key={index} style={{ padding: 3 }}>
+                  <TouchableOpacity
+                    style={styles.btnGray}
+                    onPress={() => checkBtnPress(e)}
+                  >
+                    <Text>{e}</Text>
+                  </TouchableOpacity>
+                </View>
+              );
+            }
+          })}
+        </View>
+      ))}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: "center",
+    alignSelf: "center",
+    marginVertical: 80,
+  },
+  title: {
+    fontSize: 45,
+    fontWeight: "bold",
+  },
+  screen: {
+    flexDirection: "row",
+    marginBottom: 10,
+    height: 70,
+    width: 340,
+    borderRadius: 4,
+    borderWidth: 1,
+  },
+  btnBlue: {
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    textAlignVertical: "center",
+    width: 80,
+    height: 80,
+    backgroundColor: "blue",
+  },
+  btnGray: {
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    textAlignVertical: "center",
+    width: 80,
+    height: 80,
+    backgroundColor: "gray",
+  },
+});
