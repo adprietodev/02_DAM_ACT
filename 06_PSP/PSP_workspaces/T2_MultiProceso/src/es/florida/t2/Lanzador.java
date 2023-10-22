@@ -8,9 +8,13 @@ import java.util.List;
 
 public class Lanzador {
 	
-	public static void lanzarSumador(Integer n1, Integer n2) {
-		
+	public int countLine = 0;
+	public Boolean itsReady = false;
+	
+	public static void lanzarSumador(Integer n1, Integer n2, String nameFile) {
+		Lanzador laun = new Lanzador();
 		try {
+			
 			String clase = "es.florida.t2.Sumador";
 			String javaHome = System.getProperty("java.home");
 			String javaBin = javaHome + File.separator + "bin" + File.separator + "java";
@@ -25,11 +29,12 @@ public class Lanzador {
 			command.add(n1.toString());
 			command.add(n2.toString());
 			
-			System.out.println("Comando que se pasa a ProcessBuilder: "+command);
-			System.out.println("Comando a ejecutar en cmd.exe: "+command.toString().replace(",", ""));
+			//System.out.println("Comando que se pasa a ProcessBuilder: "+command);
+			//System.out.println("Comando a ejecutar en cmd.exe: "+command.toString().replace(",", ""));
 			
 			ProcessBuilder builder = new ProcessBuilder(command);
-			//builder.directory(new File("DirSum"));
+			builder.inheritIO();
+			builder.redirectOutput(new File(nameFile));
 			Process process = builder.start();
 			
 			//process.waitFor();
@@ -38,33 +43,83 @@ public class Lanzador {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+	}
+	
+	public int checkLnFile() {
+		File fileRes = new File("resultado.txt");
+		int countLn = 0;
+		try {
+			
+				FileReader fR = new FileReader(fileRes);
+				BufferedReader bR = new BufferedReader(fR);
+				String linea = bR.readLine();
+				
+				
+				while(linea != null) {
+					countLn++;
+					linea = bR.readLine();
+				}
+				
+				bR.close();
+				fR.close();
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return countLn;
+	}
+	
+	public void readFile() {
+		File fileRes = new File("resultado.txt");
+		try {
+			
+				FileReader fR = new FileReader(fileRes);
+				BufferedReader bR = new BufferedReader(fR);
+				String linea = bR.readLine();
+				
+				
+				while(linea != null) {
+					System.out.println(linea);
+					linea = bR.readLine();
+				}
+				
+				bR.close();
+				fR.close();
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {
 		
+		if(new File("resultado.txt").exists()) {
+			new File("resultado.txt").delete();
+		}
+		if(new File("out-01.txt").exists()) {
+			new File("out-01.txt").delete();
+		}
+		if(new File("out-02.txt").exists()) {
+			new File("out-02.txt").delete();
+		}
+		
 		Lanzador launcher = new Lanzador();
 		Sumador sumador = new Sumador();
 		//sumador.clearFile();
-		lanzarSumador(1,50);
-		lanzarSumador(51,100);
+		lanzarSumador(1,50, "out-01.txt");
+		lanzarSumador(51,100, "out-02.txt");
 		
 		while(!new File("resultado.txt").exists()) {
-			//System.out.println("Estoy dentro");
-		}
-		try {
-			FileReader fR = new FileReader(new File("resultado.txt"));
-			BufferedReader bR = new BufferedReader(fR);
-			String linea = bR.readLine();
 			
-			while(linea != null) {
-				System.out.println(linea);
-				linea = bR.readLine();
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
+		}
+		while(launcher.checkLnFile() != 2) {
+			
 		}
 		
-		System.out.println("OK");
+		launcher.readFile();
 
 	}
 

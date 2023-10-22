@@ -1,27 +1,31 @@
 package es.florida.t2;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 
 public class Sumador {
 
 	public int sumar(int n1, int n2) {
-		System.out.println("Sumando de "+n1+" hasta "+n2);
+		//System.out.println("Sumando de "+n1+" hasta "+n2);
 		int resultado = 0;
 		for(int i = n1; i <= n2; i++) {
 			resultado += i;
 		}
+		
 		return resultado;
 	}
 	
 	public void writeResult(String result) {
+		Lanzador l = new Lanzador();
 		File fileResult = new File("resultado.txt");
 		//fileResult.delete();
 		try {
 			FileWriter fW = new FileWriter(fileResult, true);
 			BufferedWriter bW = new BufferedWriter(fW);
-			
+			System.out.println("El resultado es: "+result);
 			bW.write("El resultado es: "+result);
 			bW.newLine();
 			
@@ -32,11 +36,10 @@ public class Sumador {
 			e.printStackTrace();
 		}
 		
-		
 	}
 	
 	
-	public void clearFile() {
+	/*public void clearFile() {
 		File fileResult = new File("resultado.txt");
 		
 		if(fileResult.exists()) {
@@ -54,7 +57,7 @@ public class Sumador {
 			}
 		}
 		
-	}
+	}*/
 	
 	public static void main(String[] args) {
 		Sumador sum = new Sumador();
@@ -62,7 +65,6 @@ public class Sumador {
 		int n2 = Integer.parseInt(args[1]);
 		int resultado = sum.sumar(n1, n2);
 		sum.writeResult(Integer.toString(resultado));
-		System.out.println("Resultado de este sumador: "+resultado);
 
 	}
 
