@@ -15,9 +15,5 @@ public class ProbabilityCollisionNEO {
 		
 	}
 	
-	public static void main(String[] args) {
-		
-
-	}
 
 }

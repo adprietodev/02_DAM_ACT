@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<libros>
+    <libro id="1">
+        <titulo>El Gran Gatsby</titulo>
+        <anyoPublicacion>1925</anyoPublicacion>
+        <autor>F. Scott Fitzgerald</autor>
+        <editorial>Charles Scribner's Sons</editorial>
+        <numPaginas>218</numPaginas>
+    </libro>
+    <libro id="2">
+        <titulo>Cien años de soledad</titulo>
+        <anyoPublicacion>1967</anyoPublicacion>
+        <autor>Gabriel García Márquez.</autor>
+        <editorial>Casa de las Américas</editorial>
+        <numPaginas>417</numPaginas>
+    </libro>
+    <libro id="3">
+        <titulo>1984</titulo>
+        <anyoPublicacion>1949</anyoPublicacion>
+        <autor>George Orwell</autor>
+        <editorial>Secker and Warburg</editorial>
+        <numPaginas>328</numPaginas>
+    </libro>
+    <libro id="4">
+        <titulo>Don Quijote de la Mancha</titulo>
+        <anyoPublicacion>1605</anyoPublicacion>
+        <autor>Miguel de Cervantes Saavedra</autor>
+        <editorial>Francisco de Robles</editorial>
+        <numPaginas>863</numPaginas>
+    </libro>
+    <libro id="5">
+        <titulo>Harry Potter y la piedra filosofal</titulo>
+        <anyoPublicacion>1997</anyoPublicacion>
+        <autor>J.K. Rowling</autor>
+        <editorial>Bloomsbury</editorial>
+        <numPaginas>223</numPaginas>
+    </libro>
+</libros>
