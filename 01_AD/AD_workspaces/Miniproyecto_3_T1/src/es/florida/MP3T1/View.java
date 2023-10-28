@@ -12,6 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Button;
 import javax.swing.JButton;
+import javax.swing.JToggleButton;
+import javax.swing.JList;
+import javax.swing.JComboBox;
 
 public class View extends JFrame {
 
@@ -20,10 +23,7 @@ public class View extends JFrame {
 	private JScrollPane scrollPane;
 	private JTextPane titleBooks;
 	private JLabel lblBooks;
-	private JScrollPane scrollPane_1;
-	private JLabel lblInfoBook;
-	private JTextPane textPane;
-	private JButton btnCreateBook;
+	private JButton btnCreateBook,btnShowBooks, btnShowDetailsBook, btnUpdateBook, btnDeleteBook,btnCloseBiblio;
 
 	/**
 	 * Launch the application.
@@ -62,7 +62,7 @@ public class View extends JFrame {
 		contentPane.setLayout(null);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 59, 246, 517);
+		scrollPane.setBounds(6, 59, 396, 517);
 		contentPane.add(scrollPane);
 		
 		titleBooks = new JTextPane();
@@ -70,24 +70,32 @@ public class View extends JFrame {
 		
 		lblBooks = new JLabel("Libros en la biblioteca");
 		lblBooks.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBooks.setBounds(6, 31, 246, 16);
+		lblBooks.setBounds(6, 31, 396, 16);
 		contentPane.add(lblBooks);
 		
-		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(264, 59, 550, 184);
-		contentPane.add(scrollPane_1);
-		
-		textPane = new JTextPane();
-		scrollPane_1.setViewportView(textPane);
-		
-		lblInfoBook = new JLabel("Información Libro");
-		lblInfoBook.setHorizontalAlignment(SwingConstants.CENTER);
-		lblInfoBook.setBounds(264, 31, 550, 16);
-		contentPane.add(lblInfoBook);
-		
-		btnCreateBook = new JButton("Crear Libro");
-		btnCreateBook.setBounds(264, 255, 117, 29);
+		btnCreateBook = new JButton("3. Crear Libro");
+		btnCreateBook.setBounds(420, 247, 381, 48);
 		contentPane.add(btnCreateBook);
+		
+		btnShowBooks = new JButton("1. Mostrar todos los libros");
+		btnShowBooks.setBounds(420, 127, 381, 48);
+		contentPane.add(btnShowBooks);
+		
+		btnShowDetailsBook = new JButton("2. Mostar información de un libro");
+		btnShowDetailsBook.setBounds(420, 187, 381, 48);
+		contentPane.add(btnShowDetailsBook);
+		
+		btnUpdateBook = new JButton("4. Actualizar libro");
+		btnUpdateBook.setBounds(420, 307, 381, 48);
+		contentPane.add(btnUpdateBook);
+		
+		btnDeleteBook = new JButton("5. Eliminar libro");
+		btnDeleteBook.setBounds(420, 367, 381, 48);
+		contentPane.add(btnDeleteBook);
+		
+		btnCloseBiblio = new JButton("6. Cerrar biblioteca");
+		btnCloseBiblio.setBounds(420, 427, 381, 48);
+		contentPane.add(btnCloseBiblio);
 		
 		
 	}
@@ -96,7 +104,23 @@ public class View extends JFrame {
 		return titleBooks;
 	}
 	
+	
 	public JButton getBtnCreateBook() {
 		return btnCreateBook;
+	}
+	public JButton getBtnShowBooks() {
+		return btnShowBooks;
+	}
+	public JButton getBtnShowDetailsBook() {
+		return btnShowDetailsBook;
+	}
+	public JButton getBtnUpdateBook() {
+		return btnUpdateBook;
+	}
+	public JButton getBtnDeleteBook() {
+		return btnDeleteBook;
+	}
+	public JButton getBtnCloseBiblio() {
+		return btnCloseBiblio;
 	}
 }
