@@ -166,6 +166,8 @@ public class Model {
 		int choice = JOptionPane.showConfirmDialog(null, comboBox, "Selecciona una opción",
 				JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
+		
+		
 		if (choice == JOptionPane.OK_OPTION) {
 			String selectedOption = (String) comboBox.getSelectedItem();
 			if (selectedOption != null) {
@@ -176,6 +178,16 @@ public class Model {
 			}
 		} else {
 			return "cancelado";
+		}
+	}
+	
+	public void deleteBook(int id) {
+		for(Libro book : libros) {
+			if(book.getId() == id) {
+				libros.remove(book);
+				showDialog("Libro "+book.getTitle()+" con ID: "+book.getId()+", se ha eliminado correctamente","Libro eliminado",JOptionPane.INFORMATION_MESSAGE);
+				break;
+			}
 		}
 	}
 
@@ -189,13 +201,14 @@ public class Model {
 	}
 	
 	public Libro showInfoBookSelected(int id) {
-			for(Libro book : libros) {
-				if(book.getId() == id) {
-					return book;
-				}
-				break;
+		for(Libro book : libros) {
+			System.out.println(book.getId());
+			if(book.getId() == id) {
+				return book;
 			}
-		return null;
+			
+		}
+		return new Libro(0,"","","","",0);
 	}
 	
 	public String checkStringsField(String title, String autor, String publisher, String yearP, String numPages) {

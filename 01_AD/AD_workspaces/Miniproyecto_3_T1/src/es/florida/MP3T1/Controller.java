@@ -43,7 +43,8 @@ public class Controller {
 		
 		view.getBtnShowDetailsBook().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
-				book = model.showInfoBookSelected(Integer.parseInt(model.selectBook()));
+				int idSelected = Integer.parseInt(model.selectBook());
+				book = model.showInfoBookSelected(idSelected);
 				model.showDialog("ID:"+book.getId()+"\nTitulo: "+book.getTitle()+"\nAutor: "+book.getAutor()+"\nAño de publicación: "+book.getYearPub()+"\nEditorial: "+book.getPublisher()+"\nNumero de paginas: "+book.getNumPages(),"Información Libro",JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
@@ -73,6 +74,13 @@ public class Controller {
 			public void actionPerformed(ActionEvent arg) {
 				model.writeXmlFile(model.getListBooks());
 				System.exit(0);
+			}
+		});
+		
+		view.getBtnDeleteBook().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg) {
+				model.deleteBook(Integer.parseInt(model.selectBook()));
+
 			}
 		});
 		
