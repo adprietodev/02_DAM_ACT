@@ -61,25 +61,15 @@ public class Model {
 		String[] arrQuery = view.getTextQuery().getText().split(" ");
 		String queryUser = view.getTextQuery().getText();
 
-		if (arrQuery[0].toUpperCase().equals("SELECT") || arrQuery[0].toUpperCase().equals("INSERT")
-				|| arrQuery[0].toUpperCase().equals("UPDATE") || arrQuery[0].toUpperCase().equals("DELETE")) {
 
 			if (arrQuery[0].toUpperCase().equals("SELECT")) {
 				querySelect(queryUser, view);
+				
+			} else if (confirmationDialog("¿Estas realizar esta modificación en la base de datos?", "Confirmación",
+					JOptionPane.QUESTION_MESSAGE) == 0) {
+				query(queryUser, arrQuery[0]);
 			}
-
-			if ((arrQuery[0].toUpperCase().equals("INSERT") || arrQuery[0].toUpperCase().equals("UPDATE")
-					|| arrQuery[0].toUpperCase().equals("DELETE")) && confirmationDialog(
-							"¿Estas realizar esta modificación en la base de datos?", "Confirmación",
-							JOptionPane.QUESTION_MESSAGE) == 0) {
-				queryIUD(queryUser, arrQuery[0]);
-			}
-
-		} else {
-			messDialog("La consulta insertada no es correcta, por favor revisa que sea una consulta válida.",
-					"Consulta no valida", JOptionPane.ERROR_MESSAGE);
-		}
-		view.getTextQuery().setText("");
+		
 	}
 
 	public void closeCon() throws SQLException {
@@ -125,11 +115,11 @@ public class Model {
 			stmt.close();
 
 		} catch (SQLException e) {
-			messDialog("Codigo de error :"+e.getErrorCode(), "Error SELECT", JOptionPane.ERROR_MESSAGE);
+			messDialog("Codigo de error :" + e.getErrorCode(), "Error SELECT", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
-	private void queryIUD(String queryUser, String queryUsed) {
+	private void query(String queryUser, String queryUsed) {
 
 		try {
 
@@ -140,7 +130,7 @@ public class Model {
 			if (resultPS == 0) {
 				messDialog(
 						"Las lineas modificadas con " + queryUsed
-								+ " han sido 0, revisa que la instrucción sea correcta.",
+								+ " han sido 0, en caso de que la ejecución\n no deba devolver una linea como con:\n INSERT, UPDATE o DELETE\n La ejecución es correcta no debes de preocuparte, en caso contrario revisa la consulta.",
 						"Información " + queryUsed, JOptionPane.WARNING_MESSAGE);
 			} else {
 				messDialog("Consulta realizada correctamente, total de lineas modificadas " + resultPS,
@@ -150,12 +140,14 @@ public class Model {
 
 		} catch (SQLException e) {
 
-			if(e.getErrorCode() == 1142) {
-				messDialog("No tienes los permisos suficientes para ejecutar esta sentencia SQL.\nCodigo de error :"+e.getErrorCode(), "Error " + queryUsed, JOptionPane.ERROR_MESSAGE);
+			if (e.getErrorCode() == 1142) {
+				messDialog("No tienes los permisos suficientes para ejecutar esta sentencia SQL.\nCodigo de error :"
+						+ e.getErrorCode(), "Error " + queryUsed, JOptionPane.ERROR_MESSAGE);
 			} else {
-				messDialog("Error al ejecutar la sentencia de SQL.\nCodigo de error :"+e.getErrorCode(), "Error " + queryUsed, JOptionPane.ERROR_MESSAGE);
+				messDialog("Error al ejecutar la sentencia de SQL.\nCodigo de error :" + e.getErrorCode(),
+						"Error " + queryUsed, JOptionPane.ERROR_MESSAGE);
 			}
-			
+
 		}
 	}
 
@@ -364,20 +356,9 @@ public class Model {
 
 }
 
-//SELECT * FROM `authors`;
+//SELECT * FROM authors;
 //INSERT INTO titles VALUES (NULL,'Elantris',53,2005,12,794);
 //INSERT INTO titles VALUES (NULL,'El imperio final',53,2006,12,541);
 //UPDATE titles SET pages=500 WHERE pages < '200';
 //DELETE FROM titles WHERE author=53;
 //ALTER TABLE authors ADD COLUMN Prueba_err VARCHAR(20);
-//Statement stmt = con.createStatement();
-//
-//ResultSet rs = stmt.executeQuery("SELECT * FROM users");
-//
-//while(rs.next()) {
-//	String text = "";
-//	for(int i=1; i <= getCountCol(rs); i++) {
-//		text += rs.getString(i)+" ";
-//	}
-//	System.out.println(text);
-//}

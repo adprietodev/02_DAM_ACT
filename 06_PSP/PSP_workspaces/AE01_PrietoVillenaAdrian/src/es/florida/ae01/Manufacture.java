@@ -7,6 +7,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JOptionPane;
+
 public class Manufacture {
 
 	private List<Piece> pieces;
@@ -46,8 +48,10 @@ public class Manufacture {
 	public static void main(String[] args) {
 
 		Manufacture mF = new Manufacture();
+		Order order = new Order();
 
 		String[] firstSplit = args[0].split(";");
+		String numProcess = args[1];
 
 		for (int i = 0; i < firstSplit.length; i++) {
 			String[] secondS = firstSplit[i].split(" ");
@@ -103,6 +107,7 @@ public class Manufacture {
 		}
 
 		mF.writeLogFile();
+		order.messDialog("Proceso "+numProcess+": Ha finalizado la fabricación de todas las piezas", "Fin fabricación", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public void writeLogFile() {

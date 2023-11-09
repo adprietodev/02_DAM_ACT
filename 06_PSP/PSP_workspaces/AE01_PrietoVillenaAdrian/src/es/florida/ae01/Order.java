@@ -36,7 +36,7 @@ public class Order extends JFrame {
 	private JButton btnManufacture;
 	private String typeSaveExit;
 	private JPanel panelLoading;
-	private JLabel lblNewLabel;
+	private int countProcess;
 
 	/**
 	 * Launch the application.
@@ -60,6 +60,7 @@ public class Order extends JFrame {
 	 */
 	public Order() {
 		typeSaveExit = "";
+		countProcess = 0;
 		initView();
 		initEventHandler();
 		
@@ -295,7 +296,7 @@ public class Order extends JFrame {
 					if ((typeSaveExit.equals("file") && checkNameValid() && checkIsNumber())
 							|| (typeSaveExit.equals("console") && checkIsNumber())) {
 						callManufactured(getTypeQuantity());
-						messDialog("Ha finalizado la fabricación de todas las piezas, puedes mandar otra remesa.", "Fin fabricación", JOptionPane.INFORMATION_MESSAGE);
+						
 
 					} else {
 						String mess = "Error/es:\n";
@@ -338,7 +339,7 @@ public class Order extends JFrame {
 	}
 
 	public void callManufactured(String data) {
-		
+		countProcess++;
 		try {
 
 			String clase = "es.florida.ae01.Manufacture";
@@ -353,6 +354,7 @@ public class Order extends JFrame {
 			command.add(classpath);
 			command.add(className);
 			command.add(data);
+			command.add(String.valueOf(countProcess));
 
 			// System.out.println("Comando que se pasa a ProcessBuilder: "+command);
 			// System.out.println("Comando a ejecutar en cmd.exe:
@@ -367,7 +369,8 @@ public class Order extends JFrame {
 			}
 
 			Process process = builder.start();
-			process.waitFor();
+			
+			//process.waitFor();
 
 		} catch (Exception e) {
 			e.printStackTrace();
