@@ -19,6 +19,10 @@ public class Model {
 		this.userLog = "";
 	}
 
+	/**
+	 * Metodo que utilziamos para extraer los datos necesarios del xml correspondiente
+	 * @param nameFile nombre del archivo xml
+	 */
 	public void getDataXMLCon(String nameFile) {
 
 		try {
@@ -41,6 +45,10 @@ public class Model {
 
 	}
 
+	/**
+	 * Metodo que utilizamos para conectarnos a la base de datos
+	 * @return retornamos la conexión para utilizarla en otros metodos.
+	 */
 	public Connection connectDB() {
 		Connection con = null;
 		try {
@@ -57,6 +65,10 @@ public class Model {
 		return con;
 	}
 
+	/**
+	 * Metodo donde identificamos que tipo de query es para realizar un statement o otro
+	 * @param view en el caso del select necesitamos pasarle el VIEW para mas adelante generar la tabla.
+	 */
 	public void userQuery(View view) {
 		String[] arrQuery = view.getTextQuery().getText().split(" ");
 		String queryUser = view.getTextQuery().getText();
@@ -72,17 +84,31 @@ public class Model {
 		
 	}
 
+	/**
+	 * Metodo que utilizamos para desconectarnos de la base de datos.
+	 * @throws SQLException arrojamos el error de SQL en caso de haberlo
+	 */
 	public void closeCon() throws SQLException {
 		connectDB().close();
 		dataCon.setState(false);
 	}
 
+	/**
+	 * Metodo al que llamamos para cambiar de tipo de conexión con la base de datos en caso de que seas cliente o administrador
+	 * @param nameType le pasamos el nombre del tipo de conexión que es
+	 * @throws SQLException arrojamos el error de SQL en caso de haberlo
+	 */
 	public void changeCon(String nameType) throws SQLException {
 		closeCon();
 		getDataXMLCon(nameType + ".xml");
 		connectDB();
 	}
 
+	/**
+	 * Metodo que llamamos en caso de que sea la query tipo Select
+	 * @param queryUser le pasamos la query escrita por el usuario
+	 * @param view le pasamos el view generar la tabla con los datos que nos proporcione el select.
+	 */
 	private void querySelect(String queryUser, View view) {
 
 		try {
@@ -119,6 +145,11 @@ public class Model {
 		}
 	}
 
+	/**
+	 * Metodo al que llamaremos en caso de que no sea tipo SELECT la query para realizar cambios en la base de datos.
+	 * @param queryUser le pasamos la consulta escrita por el usuario
+	 * @param queryUsed Identificamos cual es la primera palabra escrita para saber el tipo de query y mostrarlo en mensajes posteriores.
+	 */
 	private void query(String queryUser, String queryUsed) {
 
 		try {
@@ -151,6 +182,11 @@ public class Model {
 		}
 	}
 
+	/**
+	 * Metodo que revisamos si el tipo de conexión en la base de datos con el usuario es correcto.
+	 * @param insertUser Le pasamos el usuario escrito
+	 * @return Si el tipo del usuario introducido es igual al que esta iniciado en la base de datos devolvera true
+	 */
 	public boolean checkCorrectType(String insertUser) {
 
 		if (dataCon.isState()) {
@@ -176,6 +212,12 @@ public class Model {
 		}
 	}
 
+	/**
+	 * Metodo que utilizamos para revisar que la contraseña sea correcta
+	 * @param user pasamos el usuario
+	 * @param password la contraseña escrita
+	 * @return si es coinciden retornamos true
+	 */
 	public boolean checkPassword(String user, String password) {
 
 		String passHashed = DigestUtils.md5Hex(password);
@@ -205,6 +247,11 @@ public class Model {
 		return valid;
 	}
 
+	/**
+	 * Metodo en el que comprobamos si estamos conectados en la base de datos y realizamos los cambios pertinentes en la interfaz
+	 * @param view le pasamos view para realizar cambios
+	 * @return retornamos el estado de la base de datos. conectado = true
+	 */
 	public boolean checkState(View view) {
 
 		if (view.getTitle().equals("Inicio de sesión")) {
@@ -230,6 +277,11 @@ public class Model {
 		return dataCon.isState();
 	}
 
+	/**
+	 * Metodo donde cogemos el tipo del usuario que hemos insertado en el field. administrador1 devolvera admin
+	 * @param textUserField le pasamos el usuario escrito en field
+	 * @return retornamos el tipo al que pertenece.
+	 */
 	public String getTypeUserDB(String textUserField) {
 		String type = "";
 		try {
@@ -256,6 +308,11 @@ public class Model {
 
 	}
 
+	/**
+	 * Metodo que llamamos para saber la cantidad de columnas que tiene la tabla.
+	 * @param rs le pasamso el ResultSet al que hayamos llamado
+	 * @return retornamos un numero entero con la cantidad de columnas
+	 */
 	public int getCountCol(ResultSet rs) {
 		int columnCount = 0;
 		try {
@@ -268,6 +325,12 @@ public class Model {
 
 	}
 
+	
+	/**
+	 * Metodo que llamamos para coger el nombre de las columnas
+	 * @param rs le pasamso el ResultSet al que hayamos llamado
+	 * @return retornamos una array tipo string con esos nombres cogidos.
+	 */
 	public String[] getColumnName(ResultSet rs) {
 
 		int columCount = getCountCol(rs);
@@ -285,6 +348,11 @@ public class Model {
 		return namesColumns;
 	}
 
+	/**
+	 * Metodo donde recogemos la cantidad de filas que tiene la tabal
+	 * @param rs le pasamso el ResultSet al que hayamos llamado
+	 * @return retornamos un numero entero con la cantidad de filas.
+	 */
 	public int getRow(ResultSet rs) {
 		int count = 0;
 
@@ -299,14 +367,30 @@ public class Model {
 		return count;
 	}
 
+	/**
+	 * Metodo que utilizamos para mostrar un mensaje de confirmación
+	 * @param mess mensaje que queremos mostrar
+	 * @param titleMess titulo del mensaje
+	 * @param num numero de tipo de mensaje 
+	 * @return retornamos la elección del usuario
+	 */
 	public int confirmationDialog(String mess, String titleMess, int num) {
 		return JOptionPane.showConfirmDialog(null, mess, titleMess, JOptionPane.YES_NO_OPTION, num);
 	}
 
+	/**
+	 * Metodo que utilziamos para mostrar mensajes informativos
+	 * @param mess mensaje que queremos mostrar
+	 * @param titleMess titulo del mensaje
+	 * @param num numero de tipo de mensaje.
+	 */
 	public void messDialog(String mess, String titleMess, int num) {
 		JOptionPane.showMessageDialog(null, mess, titleMess, num);
 	}
 
+	/**
+	 * Información de la conexión.
+	 */
 	public class DataCon {
 
 		private String url;

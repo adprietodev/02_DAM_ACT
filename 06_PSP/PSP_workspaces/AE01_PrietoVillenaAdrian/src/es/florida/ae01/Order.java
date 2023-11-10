@@ -36,6 +36,8 @@ public class Order extends JFrame {
 	private JButton btnManufacture;
 	private String typeSaveExit;
 	private JPanel panelLoading;
+	
+	//Variable creada para llevar la cuenta de procesos que llevamos ejecutados y mostrarlo al finalizar uno.
 	private int countProcess;
 
 	/**
@@ -68,6 +70,11 @@ public class Order extends JFrame {
 
 	// Inicio de checkers
 
+	
+	/**
+	 * Metodo donde revisamos que el texto que cogemos no tenga ningún char inapropiado. 
+	 * @return nos devuelve true o false dependiendo si contiene o no.
+	 */
 	private boolean checkChar() {
 		int[][] posChars = new int[][] { { 32, 47 }, { 58, 64 }, { 91, 94 }, { 96, 96 }, { 123, 255 } };
 		boolean check = false;
@@ -84,6 +91,10 @@ public class Order extends JFrame {
 		return check;
 	}
 
+	/**
+	 * Metodo donde comprobamos si el nombre es valido, tanto si tiene un caracter inapropiado como si esta vacío.
+	 * @return si esta todo correcto devuelve true si no false.
+	 */
 	private boolean checkNameValid() {
 		boolean check = false;
 		if (!textFieldName.getText().equals("")) {
@@ -94,6 +105,10 @@ public class Order extends JFrame {
 		return check;
 	}
 
+	/**
+	 * Metodo donde revisamos si los field donde hay que meter la cantidad de piezas es un numero y no contenga un string.
+	 * @return devolvemos true si son todos numeros.
+	 */
 	private boolean checkIsNumber() {
 		JTextField[] arrTF = new JTextField[] { textFieldI, textFieldO, textFieldT, textFieldJ, textFieldL, textFieldS,
 				textFieldZ };
@@ -111,6 +126,10 @@ public class Order extends JFrame {
 		return check;
 	}
 
+	/**
+	 * Metodo donde comprobamos que hay una opción de salida seleccionada
+	 * @return si hay una selecionada devolvemos true.
+	 */
 	private boolean checkIsOptionExitSelected() {
 		boolean check = false;
 		// rdbtnSaveInFile, rdbtnShowInConsole;
@@ -130,6 +149,10 @@ public class Order extends JFrame {
 
 	// Fin de checkers
 
+	
+	/**
+	 * Metodo donde iniciamos la parte visual de la aplicación.
+	 */
 	public void initView() {
 		setBackground(new Color(238, 238, 238));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -276,6 +299,9 @@ public class Order extends JFrame {
 		
 	}
 
+	/**
+	 * Metodo que llamamos al inicio donde estan los listeners para cuando pulsamos un botón.
+	 */
 	public void initEventHandler() {
 		rdbtnSaveInFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -292,12 +318,10 @@ public class Order extends JFrame {
 		btnManufacture.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if (checkIsOptionExitSelected()) {
+				if (checkIsOptionExitSelected()) { //Comprobamos que haya una opción de salida
 					if ((typeSaveExit.equals("file") && checkNameValid() && checkIsNumber())
-							|| (typeSaveExit.equals("console") && checkIsNumber())) {
-						callManufactured(getTypeQuantity());
-						
-
+							|| (typeSaveExit.equals("console") && checkIsNumber())) { // Comprobamos que dependiendo de la opción seleccionada realice una comprobación u otra.
+						callManufactured(getTypeQuantity()); //Llamamos a Manufacture.
 					} else {
 						String mess = "Error/es:\n";
 						mess += checkNameValid() ? ""
@@ -314,10 +338,20 @@ public class Order extends JFrame {
 		});
 	}
 
+	/**
+	 * Metodo donde mostramos un mensaje en la interfaz
+	 * @param mess nos indicara el mensaje que queremos mostrar
+	 * @param title pondrá titulo a la ventana que aparece del mensaje.
+	 * @param num el numero es el tipo de mensaje que nos mostrara, información, error, warrning, etc....
+	 */
 	public void messDialog(String mess, String title, int num) {
 		JOptionPane.showMessageDialog(null, mess, title, num);
 	}
 
+	/**
+	 * Metodo donde recogemos todas las piezas y la cantidad puesta por el usuario,
+	 * @return devolvemos una string para poder pasarsela al programa manufacture.
+	 */
 	public String getTypeQuantity() {
 		JTextField[] arrTF = new JTextField[] { textFieldI, textFieldO, textFieldT, textFieldJ, textFieldL, textFieldS,
 				textFieldZ };
@@ -333,11 +367,10 @@ public class Order extends JFrame {
 
 	}
 	
-	public void callPanelLoad(boolean s) {
-		panelLoading.setVisible(s);
-		
-	}
-
+	/**
+	 * Metodo donde llamamos a Manufacture y le pasamos los parametros.
+	 * @param data datos necesaario para la fabricación de las piezas.
+	 */
 	public void callManufactured(String data) {
 		countProcess++;
 		try {
@@ -355,10 +388,6 @@ public class Order extends JFrame {
 			command.add(className);
 			command.add(data);
 			command.add(String.valueOf(countProcess));
-
-			// System.out.println("Comando que se pasa a ProcessBuilder: "+command);
-			// System.out.println("Comando a ejecutar en cmd.exe:
-			// "+command.toString().replace(",", ""));
 
 			ProcessBuilder builder = new ProcessBuilder(command);
 			if (typeSaveExit.equals("console")) {

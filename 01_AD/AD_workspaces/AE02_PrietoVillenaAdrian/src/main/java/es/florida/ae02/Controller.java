@@ -17,16 +17,21 @@ public class Controller {
 		initEH();
 	}
 	
-	public void initEH() {
+	/**
+	 * Metodo donde comprobaremos que panel esta activo y iniciaremos sus eventlisteners
+	 */
+	public void initEH() { 
 		if(view.getTitle().equals("Inicio de sesión")) {
 			initEventHandlersLog();
 		}
 		if(view.getTitle().equals("Realizar consultas")) {
-			System.out.println("Entramos Realizar consultas");
 			initEventHandlersQ();
 		}
 	}
 
+	/**
+	 * Metodo que llamamos en caso de estar en el panel de login para iniciar los botones del panel login
+	 */
 	public void initEventHandlersLog() {
 
 		view.getBtnLog().addActionListener(new ActionListener() {
@@ -35,9 +40,6 @@ public class Controller {
 
 				String insertUser = view.getUserField().getText();
 				String insertPass = view.getPassField().getText();
-
-				System.out.println(
-						model.checkCorrectType(insertUser) + "  " + model.checkPassword(insertUser, insertPass));
 
 				if (model.checkCorrectType(insertUser) && model.checkPassword(insertUser, insertPass)) {
 					view.queryView();
@@ -99,12 +101,14 @@ public class Controller {
 
 	}
 	
+	/**
+	 * Metodo que llamamos cuando cambiamos de panel una vez ya logueado para iniciar los eventos de los botones de esa pantalla
+	 */
 	public void initEventHandlersQ() {
 		
 		view.getBtnDescBDQ().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
 				boolean stateCon = model.checkState(view);
-				System.out.println("Entramos");
 				try {
 					if (stateCon) {
 						if (model.confirmationDialog(

@@ -65,6 +65,9 @@ public class View extends JFrame {
 		//queryView();
 	}
 	
+	/**
+	 * Metodo donde iniciamos el panel de login
+	 */
 	public void loginView() {
 		setTitle("Inicio de sesión");
 		logPanel = new JPanel();
@@ -112,6 +115,9 @@ public class View extends JFrame {
 		logPanel.add(passField);
 	}
 	
+	/**
+	 * Metodo donde iniciamos el panel del Query una vez ya logueados
+	 */
 	public void queryView() {
 		
 		
@@ -186,7 +192,7 @@ public class View extends JFrame {
 	 */
 	
 	/**
-	 * Metodo getter que utilizamos para informar del estado de la conexión en la base de datos.
+	 * Metodo getter label del estado.
 	 * @return
 	 */
 	public JLabel getlblState() {
@@ -195,6 +201,7 @@ public class View extends JFrame {
 	
 	
 	/**
+	 * Metodo get label de la información del login
 	 * @return
 	 */
 	public JLabel getLblInfoLoged() {
@@ -202,6 +209,7 @@ public class View extends JFrame {
 	}
 	
 	/**
+	 * Metodo get del boton de Conectar - Desconectar en el panel login.
 	 * @return
 	 */
 	public JButton getbtnDescDBLog() {
@@ -209,13 +217,16 @@ public class View extends JFrame {
 	}
 	
 	/**
+	 *  Metodo get del boton de Conectar - Desconectar en el panel del Query una vez ya logeado.
 	 * @return
 	 */
 	public JButton getBtnDescBDQ() {
 		return btnDescDBQ;
 	}
 	
+	
 	/**
+	 * Metodo get del botón de login
 	 * @return
 	 */
 	public JButton getBtnLog() {
@@ -223,6 +234,7 @@ public class View extends JFrame {
 	}
 	
 	/**
+	 * Metodo get del boton para realizar la consulta
 	 * @return
 	 */
 	public JButton getBtnQuery() {
@@ -230,6 +242,7 @@ public class View extends JFrame {
 	}
 	
 	/**
+	 * Metodo get del boton para cerrar sesión
 	 * @return
 	 */
 	public JButton getBtnLogout() {
@@ -237,6 +250,7 @@ public class View extends JFrame {
 	}
 	
 	/**
+	 * Metodo get del field del usuario insertado
 	 * @return
 	 */
 	public JTextField getUserField() {
@@ -244,6 +258,7 @@ public class View extends JFrame {
 	}
 	
 	/**
+	 * Metodo get field de la contraseña insertada
 	 * @return
 	 */
 	public JTextField getPassField() {
@@ -251,6 +266,7 @@ public class View extends JFrame {
 	}
 	
 	/**
+	 * Metodo get del panel donde el usuario escribe la query
 	 * @return
 	 */
 	public JTextPane getTextQuery() {
@@ -258,6 +274,7 @@ public class View extends JFrame {
 	}
 	
 	/**
+	 * Metodo donde recogemos el panel del login
 	 * @return
 	 */
 	public JPanel getLogPanel() {
@@ -265,6 +282,7 @@ public class View extends JFrame {
 	}
 	
 	/**
+	 * Metodo dodne recogemos el panel una vez ya logeado
 	 * @return
 	 */
 	public JPanel getQueryPanel() {
@@ -272,6 +290,7 @@ public class View extends JFrame {
 	}
 	
 	/**
+	 * Metodo donde cogemos la tabla
 	 * @return
 	 */
 	public JTable getTable() {
