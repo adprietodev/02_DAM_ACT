@@ -1,4 +1,3 @@
-//Adrián Prieto Villena
 import { TextInput, Text, ScrollView, View } from "react-native";
 import { useState } from "react";
 import {

@@ -1,4 +1,3 @@
-//Adrián Prieto Villena
 import { StatusBar } from "expo-status-bar";
 import { Button } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
