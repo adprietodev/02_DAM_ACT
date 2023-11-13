@@ -8,8 +8,8 @@ import javax.swing.JOptionPane;
 
 public class Controller {
 
-	View view = new View();
-	Model model = new Model();
+	View view;
+	Model model;
 
 	public Controller(View view, Model model) {
 		this.view = view;
