@@ -27,6 +27,7 @@ public class OpenCSV {
 		this.numPaginas = new ArrayList<String>();
 	}
 	
+	
 	public void readCSV(String nameFile) {
 		
 		try (CSVReader reader = new CSVReader(new FileReader(nameFile)))  {

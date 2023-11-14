@@ -1,0 +1,15 @@
+btnCargarDirectorio=Cargar directorio
+lblDirectorio=Selecciona un directorio...
+lblOrdenar=Ordenar por...
+comboBoxOrdenar=Nombre;Tamaño;Modificado
+rdbtnAscendente=Ascendente
+rdbtnDescendente=Descendente
+btnOrdenar=Ordenar
+btnFusionar=Fusionar
+txtTextfieldBuscar=Texto...
+btnBuscar=Buscar
+strCoincidencias=coincidencias
+strPopupNombreMensaje=Indica el nombre (con la extensión) del nuevo fichero...
+strPopupSobrescrituraMensaje=El fichero ya existe, ¿deseas sobrescribirlo?
+strPopupBotonAceptar=Aceptar
+strPopupBotonCancelar=Cancelar

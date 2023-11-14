@@ -1,0 +1,15 @@
+btnCargarDirectorio=Load folder
+lblDirectorio=Select a folder...
+lblOrdenar=Sort by...
+comboBoxOrdenar=Name;Size;Modified
+rdbtnAscendente=Ascending
+rdbtnDescendente=Descending
+btnOrdenar=Sort
+btnFusionar=Merge
+txtTextfieldBuscar=Text...
+btnBuscar=Search
+strCoincidencias=coincidences
+strPopupNombreMensaje=Type the name (with the extension) of the new file...
+strPopupSobrescrituraMensaje=The file already exists, overwrite?
+strPopupBotonAceptar=Accept
+strPopupBotonCancelar=Cancel

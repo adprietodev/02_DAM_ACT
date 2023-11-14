@@ -1,0 +1,15 @@
+btnCargarDirectorio=Carregar directori
+lblDirectorio=Selecciona un directori...
+lblOrdenar=Ordenar per...
+comboBoxOrdenar=Nom;Grandària;Modificat
+rdbtnAscendente=Ascendent
+rdbtnDescendente=Descendent
+btnOrdenar=Ordenar
+btnFusionar=Fusionar
+txtTextfieldBuscar=Text...
+btnBuscar=Buscar
+strCoincidencias=coincidències
+strPopupNombreMensaje=Indica el nom (amb l'extensió) del nou fitxer...
+strPopupSobrescrituraMensaje=El fitxer ja existeix, vols sobrescriure'l?
+strPopupBotonAceptar=Acceptar
+strPopupBotonCancelar=Cancel·lar

@@ -55,7 +55,6 @@ public class Seccion_02 {
 		} catch(Exception e) {
 			System.out.println(e);
 		}
-		
 	}
 	
 	public static void ejercicio_2_2() {
