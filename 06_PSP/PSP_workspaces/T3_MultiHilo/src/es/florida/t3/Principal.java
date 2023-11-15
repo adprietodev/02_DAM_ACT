@@ -27,32 +27,32 @@ public class Principal {
 		
 		
 		
-		Thread caracolHilo01 = new Thread(new Caracol(0.5,"Adrián"));
-		Thread caracolHilo02 = new Thread(new Caracol(0.5,"Raquel"));
-		Thread caracolHilo03 = new Thread(new Caracol(0.5,"Toni"));
-		Thread caracolHilo04 = new Thread(new Caracol(0.5,"German"));
-		Thread caracolHilo05 = new Thread(new Caracol(0.5,"Aitor"));
-		
-		caracolHilo01.setPriority(Thread.MAX_PRIORITY);
-		caracolHilo02.setPriority(Thread.NORM_PRIORITY);
-		caracolHilo03.setPriority(Thread.NORM_PRIORITY);
-		caracolHilo04.setPriority(Thread.MIN_PRIORITY);
-		caracolHilo05.setPriority(Thread.MAX_PRIORITY);
-		
-		
-		caracolHilo01.start();
-		caracolHilo02.start();
-		caracolHilo03.start();
-		caracolHilo04.start();
-		caracolHilo05.start();
+//		Thread caracolHilo01 = new Thread(new Caracol(0.5,"Adrián"));
+//		Thread caracolHilo02 = new Thread(new Caracol(0.5,"Raquel"));
+//		Thread caracolHilo03 = new Thread(new Caracol(0.5,"Toni"));
+//		Thread caracolHilo04 = new Thread(new Caracol(0.5,"German"));
+//		Thread caracolHilo05 = new Thread(new Caracol(0.5,"Aitor"));
+//		
+//		caracolHilo01.setPriority(Thread.MAX_PRIORITY);
+//		caracolHilo02.setPriority(Thread.NORM_PRIORITY);
+//		caracolHilo03.setPriority(Thread.NORM_PRIORITY);
+//		caracolHilo04.setPriority(Thread.MIN_PRIORITY);
+//		caracolHilo05.setPriority(Thread.MAX_PRIORITY);
+//		
+//		
+//		caracolHilo01.start();
+//		caracolHilo02.start();
+//		caracolHilo03.start();
+//		caracolHilo04.start();
+//		caracolHilo05.start();
 
 	}
 	
-	private Double speedRandom() {
-		Double randomSpeed = Math.random() * 0.9;
-        String formattedValue = String.format("%.2f", randomSpeed).replace(",", ".");
-        randomSpeed = Double.parseDouble(formattedValue);
-        return randomSpeed;
-	}
+//	private Double speedRandom() {
+//		Double randomSpeed = Math.random() * 0.9;
+//        String formattedValue = String.format("%.2f", randomSpeed).replace(",", ".");
+//        randomSpeed = Double.parseDouble(formattedValue);
+//        return randomSpeed;
+//	}
 
 }
