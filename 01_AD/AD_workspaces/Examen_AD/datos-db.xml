@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<destinos>
+    <destino id="1">
+        <ciudad>Madrid</ciudad>
+        <continente>Europa</continente>
+        <precio>100</precio>
+    </destino>
+    <destino id="2">
+        <ciudad>Londres</ciudad>
+        <continente>Europa</continente>
+        <precio>150</precio>
+    </destino>
+    <destino id="3">
+        <ciudad>Paris</ciudad>
+        <continente>Europa</continente>
+        <precio>135</precio>
+    </destino>
+    <destino id="4">
+        <ciudad>Roma</ciudad>
+        <continente>Europa</continente>
+        <precio>105</precio>
+    </destino>
+    <destino id="5">
+        <ciudad>Moscu</ciudad>
+        <continente>Europa</continente>
+        <precio>545</precio>
+    </destino>
+    <destino id="6">
+        <ciudad>Nova York</ciudad>
+        <continente>America</continente>
+        <precio>725</precio>
+    </destino>
+    <destino id="7">
+        <ciudad>Buenos Aires</ciudad>
+        <continente>America</continente>
+        <precio>889</precio>
+    </destino>
+    <destino id="8">
+        <ciudad>Kuala Lumpur</ciudad>
+        <continente>Asia</continente>
+        <precio>1095</precio>
+    </destino>
+    <destino id="9">
+        <ciudad>Tokio</ciudad>
+        <continente>Asia</continente>
+        <precio>1200</precio>
+    </destino>
+    <destino id="10">
+        <ciudad>Sidney</ciudad>
+        <continente>Oceania</continente>
+        <precio>1350</precio>
+    </destino>
+</destinos>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configurations>
+    <config1>
+        <url>jdbc:mysql://localhost:3306/viajes</url>
+        <user>examen</user>
+        <password>examen</password>
+    </config1>
+</configurations>

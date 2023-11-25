@@ -1,0 +1,6 @@
+conector=jdbc:mysql
+ip=localhost
+port=3306
+bdd=viajes
+user=examen
+password=examen
