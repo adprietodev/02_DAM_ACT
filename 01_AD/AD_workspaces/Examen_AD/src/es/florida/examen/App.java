@@ -30,81 +30,81 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class App {
-	
+
 	DataCON dataCon = new DataCON();
 	List<ContDB> contDB = new ArrayList<ContDB>();
-	
+
 	public class XMLData {
 		private String url;
 		private String user;
 		private String password;
-		
-		public XMLData (String url, String user, String password) {
+
+		public XMLData(String url, String user, String password) {
 			this.url = url;
 			this.user = user;
 			this.password = password;
 		}
-		
+
 	}
-	
+
 	public class DataCON {
-		
+
 		private String url;
 		private String user;
 		private String password;
-		
+
 		public DataCON() {
-			
+
 		}
-		
-		public DataCON (String url, String user, String password) {
+
+		public DataCON(String url, String user, String password) {
 			this.url = url;
 			this.user = user;
 			this.password = password;
 		}
 	}
-	
+
 	public static class DataTable {
 		private String destino;
 		private String continente;
 		private int precio;
-		
+
 		public DataTable(String destino, String continente, int precio) {
 			this.destino = destino;
 			this.continente = continente;
 			this.precio = precio;
 		}
 	}
-	
+
 	public class ContDB {
 		private String id;
 		private String destino;
 		private String continente;
 		private String precio;
-		
+
 		public ContDB() {
-			
+
 		}
-		
+
 		public ContDB(String id, String destino, String continente, String precio) {
 			this.id = id;
 			this.destino = destino;
 			this.continente = continente;
 			this.precio = precio;
 		}
-		
+
 	}
-	
+
 	public static void main(String[] args) {
-		
+
 		App app = new App();
-		
+
 		File fileCon = new File("conexion.txt");
-		
+
 		XMLData xmlData = app.readFileCon(fileCon);
-		
+
 		List<DataTable> dataTable = new ArrayList<DataTable>();
-		
+
 		dataTable.add(new DataTable("Madrid", "Europa", 100));
 		dataTable.add(new DataTable("Londres", "Europa", 150));
 		dataTable.add(new DataTable("Paris", "Europa", 135));
@@ -115,44 +115,52 @@ public class App {
 		dataTable.add(new DataTable("Kuala Lumpur", "Asia", 1095));
 		dataTable.add(new DataTable("Tokio", "Asia", 1200));
 		dataTable.add(new DataTable("Sidney", "Oceania", 1350));
-		
+
 		app.writeXmlFile(xmlData);
-		
+
 		app.dataCon = app.readXML(new File("config.xml"));
-		
+
 //		try {
 //			System.out.println(app.connectDB(app.dataCon).isValid(0));
 //		} catch (SQLException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		
-		//Insertar datos en tabla
-		//app.queryInsert(dataTable);
-		
-		//app.consultaContinentes();;
-		
+
+		// Insertar datos en tabla
+		// app.queryInsert(dataTable);
+
+		try {
+			app.consultaContinentes();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		app.querySelect();
 		app.writeXmlFileDB(app.contDB);
-		
+
 		try {
 			app.connectDB(app.dataCon).close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		//SELECT continente, MAX(precio) AS Precio_Maximo, AVG(precio) AS Media_precios FROM vuelos GROUP BY continente
-		//SELECT continente, MIM(precio) AS Precio_Minimo, AVG(precio) AS Media_precios FROM vuelos GROUP BY continente
+
+		// SELECT continente, MAX(precio) AS Precio_Maximo, AVG(precio) AS Media_precios
+		// FROM vuelos GROUP BY continente
+		// SELECT continente, MIM(precio) AS Precio_Minimo, AVG(precio) AS Media_precios
+		// FROM vuelos GROUP BY continente
 
 	}
-	
+
 	public Connection connectDB(DataCON dataCon) {
 		Connection con = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			//Si dejara acceder con examen examen seria la linea comentada
-			//con = DriverManager.getConnection(dataCon.url, dataCon.user, dataCon.password);
+			// Si dejara acceder con examen examen seria la linea comentada
+			// con = DriverManager.getConnection(dataCon.url, dataCon.user,
+			// dataCon.password);
 			con = DriverManager.getConnection(dataCon.url, "root", "");
 
 		} catch (Exception e) {
@@ -161,22 +169,22 @@ public class App {
 		}
 		return con;
 	}
-	
+
 	private void queryInsert(List<DataTable> dataTable) {
 
 		try {
 
 			PreparedStatement psInsertar = null;
-			
-			for(DataTable data : dataTable) {
-				psInsertar  = connectDB(dataCon).prepareStatement("INSERT INTO vuelos (id,destino,continente,precio) VALUES (NULL,?,?,?)");
 
-				psInsertar.setString(1,data.destino);
-				psInsertar.setString(2,data.continente);
-				psInsertar.setInt(3,data.precio);
+			for (DataTable data : dataTable) {
+				psInsertar = connectDB(dataCon)
+						.prepareStatement("INSERT INTO vuelos (id,destino,continente,precio) VALUES (NULL,?,?,?)");
+
+				psInsertar.setString(1, data.destino);
+				psInsertar.setString(2, data.continente);
+				psInsertar.setInt(3, data.precio);
 				int resultadoInsertar = psInsertar.executeUpdate();
 			}
-			
 
 			psInsertar.close();
 
@@ -186,39 +194,46 @@ public class App {
 
 		}
 	}
-	
-	private void consultaContinentes() {
-		String[] conExist = {"Europa","America","Asia","Africa","Oceania"};
-		String currentCont = "";
+
+	private void consultaContinentes() throws SQLException {
+		String[] conExist = { "Europa", "America", "Asia", "Africa", "Oceania" };
+		Connection con = connectDB(dataCon);
+		Statement stmt = con.createStatement();
 		try {
-			Connection con = connectDB(dataCon);
-			Statement stmt = con.createStatement();
-
-			//SELECT continente, MAX(precio) AS Precio_Maximo, AVG(precio) AS Media_precios FROM vuelos GROUP BY continente
-			//SELECT continente, MIM(precio) AS Precio_Minimo, AVG(precio) AS Media_precios FROM vuelos GROUP BY continente
+			// SELECT continente, MAX(precio) AS Precio_Maximo, AVG(precio) AS Media_precios
+			// FROM vuelos GROUP BY continente
+			// SELECT continente, MIM(precio) AS Precio_Minimo, AVG(precio) AS Media_precios
+			// FROM vuelos GROUP BY continente
 			ResultSet rs = null;
-			for(String continente : conExist) {
-				currentCont = continente;
-				System.out.println("SELECT continente, MAX(precio) AS Precio_Maximo, AVG(precio) AS Media_precios FROM vuelos WHERE continente='"+continente+"' GROUP BY continente");
-				
-				rs = stmt.executeQuery("SELECT continente, MAX(precio), AVG(precio) FROM vuelos WHERE continente='"+continente+"' GROUP BY continente");
+			for (String continente : conExist) {
+				rs = stmt.executeQuery("SELECT continente, MAX(precio), MIN(precio), AVG(precio) FROM vuelos WHERE continente='"+continente+"' GROUP BY continente;");
 
-				System.out.println(rs.getString(1));
 				
+				if (rs.next()) {
+					System.out.println(rs.getString(1)+": Precio maximo: "+rs.getInt(2)+" --- Precio minimo: "+rs.getInt(3)+" --- Media de precio: "+rs.getDouble(4));
+				}else {
+					System.out.println(continente + ": Sin datos");
+				}
 
 				rs.close();
-				stmt.close();
 			}
-			
 
 		} catch (SQLException e) {
-			System.out.println(e);
 			e.printStackTrace();
-			System.out.println(currentCont+": Sin datos");
+			
+		} finally {
+			// Cerrar el Statement fuera del bucle
+			if (stmt != null) {
+				stmt.close();
+			}
+
+			// Cerrar la conexión al final
+			if (con != null) {
+				con.close();
+			}
 		}
 	}
-	
-	
+
 	private void querySelect() {
 		try {
 			Connection con = connectDB(dataCon);
@@ -226,14 +241,14 @@ public class App {
 
 			ResultSet rs = stmt.executeQuery("SELECT * FROM vuelos");
 
-			
 			while (rs.next()) {
-				contDB.add(new ContDB(String.valueOf(rs.getInt(1)),rs.getString(2),rs.getString(3),String.valueOf(rs.getInt(4))));
+				contDB.add(new ContDB(String.valueOf(rs.getInt(1)), rs.getString(2), rs.getString(3),
+						String.valueOf(rs.getInt(4))));
 			}
 
 			rs.close();
 			stmt.close();
-			
+
 //			for(ContDB data : contDB) {
 //				System.out.println(data.id);
 //			}
@@ -242,7 +257,7 @@ public class App {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void writeXmlFileDB(List<ContDB> contDB) {
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -290,11 +305,11 @@ public class App {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public DataCON readXML(File file) {
 
 		DataCON dataCon = new DataCON();
-		
+
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -311,7 +326,7 @@ public class App {
 					String url = eElement.getElementsByTagName("url").item(0).getTextContent();
 					String user = eElement.getElementsByTagName("user").item(0).getTextContent();
 					String password = eElement.getElementsByTagName("password").item(0).getTextContent();
-					dataCon = new DataCON(url,user,password);
+					dataCon = new DataCON(url, user, password);
 				}
 			}
 
@@ -321,9 +336,9 @@ public class App {
 		}
 		return dataCon;
 	}
-	
+
 	public XMLData readFileCon(File file) {
-		
+
 		String conector = "";
 		String ip = "";
 		String port = "";
@@ -331,51 +346,50 @@ public class App {
 		String url = "";
 		String user = "";
 		String password = "";
-		
+
 		try {
 			FileReader fR = new FileReader(file);
 			BufferedReader bR = new BufferedReader(fR);
-			
+
 			String linea = bR.readLine();
-			
-			while(linea !=  null) {
+
+			while (linea != null) {
 				String[] splitLn = linea.split("=");
-				if(splitLn[0].equals("conector")) {
+				if (splitLn[0].equals("conector")) {
 					conector = splitLn[1];
 				}
-				if(splitLn[0].equals("ip")) {
+				if (splitLn[0].equals("ip")) {
 					ip = splitLn[1];
 				}
-				if( splitLn[0].equals("port")) {
-					port =  splitLn[1];
+				if (splitLn[0].equals("port")) {
+					port = splitLn[1];
 				}
-				if(splitLn[0].equals("bdd")) {
+				if (splitLn[0].equals("bdd")) {
 					bdd = splitLn[1];
 				}
-				if(splitLn[0].equals("user")) {
+				if (splitLn[0].equals("user")) {
 					user = splitLn[1];
 				}
-				if(splitLn[0].equals("password")) {
+				if (splitLn[0].equals("password")) {
 					password = splitLn[1];
 				}
 				linea = bR.readLine();
 			}
-			
+
 			bR.close();
-			
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		url = conector+"://"+ip+":"+port+"/"+bdd;
-		
-		XMLData xmlData = new XMLData(url,user,password);
+
+		url = conector + "://" + ip + ":" + port + "/" + bdd;
+
+		XMLData xmlData = new XMLData(url, user, password);
 		return xmlData;
-		
+
 	}
-	
+
 	public void writeXmlFile(XMLData xmlData) {
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -385,7 +399,7 @@ public class App {
 			Element raiz = doc.createElement("configurations");
 
 			doc.appendChild(raiz);
-			
+
 			Element config = doc.createElement("config1");
 			raiz.appendChild(config);
 
@@ -400,7 +414,6 @@ public class App {
 			Element password = doc.createElement("password");
 			password.appendChild(doc.createTextNode(xmlData.password));
 			config.appendChild(password);
-
 
 			TransformerFactory tranFactory = TransformerFactory.newInstance(); // Crea serialización
 			Transformer aTransformer = tranFactory.newTransformer();
