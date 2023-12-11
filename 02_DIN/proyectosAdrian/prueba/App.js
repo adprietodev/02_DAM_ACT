@@ -5,55 +5,75 @@
  * @format
  */
 
-import * as React from 'react';
-import {PaperProvider} from 'react-native-paper';
-import {ActivityIndicator, MD2Colors} from 'react-native-paper';
-import {Avatar} from 'react-native-paper';
+import React, {Component} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
 
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  Button,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-function App() {
-  return (
-    <View>
-      <ActivityIndicator animating={true} color={MD2Colors.red800} />
-      <Avatar.Icon size={120} icon="folder" />
-    </View>
-  );
+class App extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.seccion1}>
+          <Text>seccion1</Text>
+        </View>
+        <View style={styles.seccion2}>
+          <Text>seccion2</Text>
+          <View style={{backgroundColor: 'red', height: 50}}></View>
+          <View
+            style={{
+              backgroundColor: 'green',
+              width: 50,
+              height: 50,
+            }}></View>
+          <View style={{backgroundColor: 'blue', width: 50, height: 50}}></View>
+        </View>
+        <View style={styles.seccion3}>
+          <Text>seccion3</Text>
+        </View>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    borderColor: 'purple',
+    borderWidth: 5,
   },
-  sectionTitle: {
-    fontSize: 24,
+  seccion1: {
+    flex: 1,
+    borderColor: 'red',
+    borderWidth: 3,
+    fontSize: 12,
     fontWeight: '600',
+    margin: 4,
+    padding: 12,
+    textAlign: 'right',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  seccion2: {
+    flex: 0.5,
+    flexWrap: 'wrap-reverse',
+    alignContent: 'stretch',
+    justifyContent: 'space-around',
+    alignItems: 'stretch',
+    borderColor: 'green',
+    borderWidth: 3,
+    fontSize: 12,
+    fontWeight: '600',
+    margin: 4,
+    padding: 12,
+    textAlign: 'right',
   },
-  highlight: {
-    fontWeight: '700',
+  seccion3: {
+    flex: 1,
+    borderColor: 'blue',
+    borderWidth: 3,
+    fontSize: 12,
+    fontWeight: '600',
+    margin: 4,
+    padding: 12,
+    textAlign: 'right',
   },
 });
 
