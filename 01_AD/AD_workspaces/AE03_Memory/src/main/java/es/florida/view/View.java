@@ -133,10 +133,6 @@ public class View extends JFrame {
 			
 		}
 		
-		Controller controlador = new Controller(this);
-        for (JButton button : btnsImgs) {
-            button.addActionListener(controlador);
-        }
 	}
 	
 	

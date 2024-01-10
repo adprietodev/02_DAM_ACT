@@ -1,20 +1,24 @@
 package es.florida.controller;
-
+import java.awt.Image;
 import es.florida.view.*;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import es.florida.model.*;
 
-public class Controller implements ActionListener {
+public class Controller {
 	
 	private View view;
 	private Model model;
@@ -106,8 +110,20 @@ public class Controller implements ActionListener {
 						public void actionPerformed(ActionEvent arg) {
 							view.imgPanel(8);
 							model.generateCard(view.getBtnsImgs(), 4);
-							cards = model.getCards();
 							view.getSelectMode().dispose();
+							for(int i = 0; i < view.getBtnsImgs().length; i++) {
+								view.getBtnsImgs()[i].addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg) {
+										for(Card card : model.getCards()) {
+											if(card.getBtnImg() == (JButton) arg.getSource()) {
+												System.out.println(card.getId()+" - "+card.getName()+" - ");
+												card.turnCard();
+											}
+										}
+									}
+								});
+							}
+							
 							
 						}});
 					
@@ -136,30 +152,8 @@ public class Controller implements ActionListener {
 				
 			}
 		});
+		
+				
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		JButton clickedButton = (JButton) e.getSource();
-	     int buttonIndex = getButtonIndex(clickedButton);
-	    //System.out.println("Se hizo clic en el Botón " + (buttonIndex));
-	     
-	     for(Card card : cards) {
-	    	 if(card.getId() == buttonIndex) {
-	    		 clickedButton.setIcon(card.getImgIcon());
-	    	 }
-	     }
-	}
-	
-	private int getButtonIndex(JButton button) {
-        JButton[] btnsImgs = view.getBtnsImgs();
-        for (int i = 0; i < btnsImgs.length; i++) {
-            if (btnsImgs[i] == button) {
-                return i;
-            }
-        }
-        return -1;
-    }
 
 }

@@ -236,7 +236,10 @@ public class Model {
 		for(int i = 0; i < btnsImgs.length;) {
 			Random random = new Random();
 			int numRandom = random.nextInt(btnsImgs.length);
+			System.out.println(posUsed.contains(numRandom) + " - " + numRandom);
 			if(!posUsed.contains(numRandom)) {
+				posUsed.add(numRandom);
+				System.out.println(posUsed.contains(numRandom) + " - Elegido " + numRandom);
 				cards.add(new Card(numRandom, selected.get(i),base64Selected.get(i),generateImageIcon(base64Selected.get(i),selected.get(i)),btnsImgs[numRandom]));
 				i++;
 			}
@@ -253,6 +256,10 @@ public class Model {
 			
 			ImageIO.write(imgBF, "jpg", new File("./imgs/"+name));
 			
+			while(!new File("./imgs/"+name).exists()) {
+				
+			}
+			
 			File fileImg = new File("./imgs/"+name);
 			img = ImageIO.read(fileImg);
 			ImageIcon imgIcon = new ImageIcon(img);
@@ -262,6 +269,14 @@ public class Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	public void turnCard(JButton btn) {
+		for(Card card : cards) {
+			if(btn == card.getBtnImg()) {
+				btn.setIcon(card.getImgIcon());
+			}
 		}
 	}
 	
