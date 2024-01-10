@@ -1,0 +1,6 @@
+{
+  "IP": "localhost",
+  "port": 27017,
+  "database": "memory",
+  "collections": ["imgs", "records", "users"]
+}
