@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Audio } from "expo-av";
 import getData from '../../services/Services';
 import wordsListening from '../../services/data/listening.json';
+import getRandomNum from '../../services/RandomNumber';
 
 export default function Listening() {
 
@@ -151,10 +152,6 @@ export default function Listening() {
     await sound.playAsync();
     setAudio("");
   };
-
-  const getRandomNum = (num) => {
-    return Math.floor(Math.random() * num)
-  }
 
   return (
     <View style={{ marginHorizontal: "auto", marginTop: 60, justifyContent: "center", alignItems: "center", }}>

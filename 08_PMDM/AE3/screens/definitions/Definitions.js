@@ -4,6 +4,8 @@ import { Audio } from "expo-av";
 import definitions from "../../services/data/definitions.json";
 import getData from "../../services/Services";
 import shuffleDefinition from "./ShuffleDefinitions";
+import getRandomNum from '../../services/RandomNumber';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function Definitions() {
   const lvlOne = definitions[0].levelOne;
@@ -56,9 +58,9 @@ export default function Definitions() {
     //console.log("Iniciamos game");
     let numRandom = 0;
     if (lvl === 1) {
-      numRandom = Math.floor(Math.random() * lvlOne.length);
+      numRandom = getRandomNum(lvlOne.length);
     } else if (lvl === 2) {
-      numRandom = Math.floor(Math.random() * lvlTwo.length);
+      numRandom = getRandomNum(lvlTwo.length);
     }
 
     const word = lvl === 1 ? lvlOne[numRandom] : lvlTwo[numRandom];

@@ -3,6 +3,7 @@ import fillInTheGaps from '../../services/data/fill_in_the_gaps.json';
 import { Audio } from "expo-av";
 import getData from "../../services/Services";
 import { useState, useEffect } from 'react';
+import getRandomNum from '../../services/RandomNumber';
 
 export default function FillInTheGaps() {
 
@@ -84,9 +85,6 @@ export default function FillInTheGaps() {
     setAudio("");
   };
 
-  const getRandomNum = (num) => {
-    return Math.floor(Math.random() * num)
-  }
 
   const data = async (adjective) => {
     const response = await getData(
