@@ -16,8 +16,8 @@ const App = () => {
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name="Definitions" component={Definitions} />
-        <Tab.Screen name="FillInTheGarps" component={FillInTheGaps} />
         <Tab.Screen name="Listening" component={Listening} />
+        <Tab.Screen name="FillInTheGarps" component={FillInTheGaps} />
         <Tab.Screen name="Synonyms" component={Synonyms} />
       </Tab.Navigator>
     </NavigationContainer>
