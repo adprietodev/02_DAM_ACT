@@ -1,0 +1,16 @@
+[
+  {
+    "levelOne": ["harsh", "brainy", "dusty", "big"],
+    "levelTwo": [
+      "square",
+      "fat",
+      "sleepy",
+      "straight",
+      "cool",
+      "dirty",
+      "safe", 
+      "alive",
+      "cold"
+    ]
+  }
+]

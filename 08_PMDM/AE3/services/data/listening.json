@@ -1,0 +1,26 @@
+[
+  {
+    "levelOne":  [
+        "loud",
+        "husky",
+        "harsh",
+        "faint",
+        "wide",
+        "tall"
+    ],
+    "levelTwo": [
+        "large",
+        "fat",
+        "big",
+        "thin",
+        "straight",
+        "steep",
+        "square",
+        "jagged",
+        "flat",
+        "deep",
+        "crooked",
+        "quiet"
+      ]
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "levelOne": {
+      "adjectives": [
+        "loud",
+        "husky",
+        "harsh",
+        "faint",
+        "wide",
+        "tall"
+      ],
+      "sentences": [
+        "A **** party that went on all night",
+        "He has a ***** and dark voice",
+        "The government is taking ***** measures against crime.",
+        "I felt ***** after my fifth gin and tonic.",
+        "We walked down a **** corridor.",
+        "The boy is rather **** for his age"
+      ]
+    },
+    "levelTwo": {
+      "adjectives": [
+        "straight",
+        "steep",
+        "square",
+        "jagged",
+        "flat",
+        "deep",
+        "crooked",
+        "quiet"
+      ],
+      "sentences": [
+        "Carefully pull the sound card ******** out of the slot.",
+        "Twenty quid for a shave? That's a bit *****.",
+        "A body of troops drawn up in a ****** formation.",
+        "****** pieces of glass were placed on the wall to discourage observers.",
+        "The land around here is ****.",
+        "Russell is a safe pair of hands in the ****",
+        "We walked up the ******* path to the top of the hill.",
+        "Can you ***** your child? He's making lots of noise."
+      ]
+    }
+  }
+]
