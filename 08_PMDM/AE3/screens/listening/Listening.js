@@ -24,6 +24,7 @@ export default function Listening() {
         alert("!ENHORABUENA HAS GANADO! :)")
       }
       setDrawTable([["Try Again"]]);
+      setFails(0);
     }
   }, [lvl]);
 
@@ -42,7 +43,6 @@ export default function Listening() {
     if (fails === 2) {
       alert("Has perdido :(");
       setLvl(0);
-      setFails(0);
     }
   }, [fails]);
 
