@@ -1,11 +1,10 @@
 import { TouchableOpacity, Text, View, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
-import { Audio } from "expo-av";
 import definitions from "../../services/data/definitions.json";
 import getData from "../../services/Services";
-import shuffleDefinition from "./ShuffleDefinitions";
+import shuffle from "../../services/Shuffle";
+import playAudio from '../../services/PlayAudio';
 import getRandomNum from '../../services/RandomNumber';
-import { useIsFocused } from '@react-navigation/native';
 
 export default function Definitions() {
   const lvlOne = definitions[0].levelOne;
@@ -32,9 +31,7 @@ export default function Definitions() {
     if (description && description.trim() !== "") {
       try {
         let splitDesc = description.split(" ");
-        //console.log(splitDesc.length);
-        let messy = shuffleDefinition(splitDesc);
-        //console.log("Split desc: ", splitDesc, messy);
+        let messy = shuffle(splitDesc);
         setMessyDescription(messy);
       } catch (error) {
         console.log("Error", error);
@@ -43,7 +40,7 @@ export default function Definitions() {
   }, [description]);
 
   useEffect(() => {
-    if (audio !== "") playAudio();
+    if (audio !== "") playAudio(audio); setAudio("");
   }, [audio]);
 
   useEffect(() => {
@@ -54,20 +51,26 @@ export default function Definitions() {
     }
   }, [fails]);
 
+  /**
+   * Función que utilizamos para iniciar el juego.
+   * @param {*} lvl le pasamos el parametro que indica en el nivel que nos encontramos para que adquiera la información de un archivo .json u otro.
+   */
   const initGame = async (lvl) => {
-    //console.log("Iniciamos game");
     let numRandom = 0;
     if (lvl === 1) {
       numRandom = getRandomNum(lvlOne.length);
     } else if (lvl === 2) {
       numRandom = getRandomNum(lvlTwo.length);
     }
-
     const word = lvl === 1 ? lvlOne[numRandom] : lvlTwo[numRandom];
-    console.log(word);
     await data(word);
   };
 
+  /**
+   * Función que utilizamos para cambiar de posición el botón al hacer clic en el
+   * @param {*} index le pasamos el indice para saber el botón que hemos clicado y por cual hay que cambiarlo.
+   * @param {*} size necesitamos saber la longitud de la array para en caso de clicar el botón que estaa en la posición 0 se cambien por el ultimo.
+   */
   const changePos = (index, size) => {
     let arrayDesc = [...messyDescription];
 
@@ -84,6 +87,9 @@ export default function Definitions() {
     setMessyDescription(arrayDesc);
   };
 
+  /**
+   * Al hacer clic en el botón de comparar llamamos a esta función para saber si es correcto o no.
+   */
   const compareDesc = () => {
     if (textBtnCompare === "Comprobar") {
       let check = messyDescription.every(
@@ -103,18 +109,16 @@ export default function Definitions() {
     }
   };
 
+  /**
+   * Función que utilizamos para llamar a la api
+   * @param {*} word la palabra que queremos para buscar.
+   */
   const data = async (word) => {
     const response = await getData(
       `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
     );
     setDescription(response[0].meanings[0].definitions[0].definition);
     setAudio(response[0].phonetics[0].audio);
-  };
-
-  const playAudio = async () => {
-    const { sound } = await Audio.Sound.createAsync({ uri: audio });
-    await sound.playAsync();
-    setAudio("");
   };
 
   return (

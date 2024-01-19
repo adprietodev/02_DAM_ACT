@@ -1,9 +1,9 @@
 import { TouchableOpacity, Text, TextInput, View } from 'react-native';
 import fillInTheGaps from '../../services/data/fill_in_the_gaps.json';
-import { Audio } from "expo-av";
 import getData from "../../services/Services";
 import { useState, useEffect } from 'react';
 import getRandomNum from '../../services/RandomNumber';
+import playAudio from '../../services/PlayAudio';
 
 export default function FillInTheGaps() {
 
@@ -48,9 +48,13 @@ export default function FillInTheGaps() {
   }, [gameStart]);
 
   useEffect(() => {
-    if (audio !== "") playAudio();
+    if (audio !== "") playAudio(audio); setAudio("");
   }, [audio]);
 
+  /**
+   * Función que utilizamos para iniciar el juego.
+   * @param {*} lvl le pasamos el parametro que indica en el nivel que nos encontramos para que adquiera la información de un archivo .json u otro.
+   */
   const initGame = (lvl) => {
     let numRandom = 0;
     if (lvl === 1) {
@@ -67,6 +71,10 @@ export default function FillInTheGaps() {
     }
   }
 
+  /**
+   * Función que utilizamos para comparar el la palabra escrita con la comunicada
+   * @param {*} input pasamos de parametro lo escrito en el input
+   */
   const compareInputAdjetive = (input) => {
     if (adjetive.toLowerCase() === input.toLowerCase() && lvl === 1) {
       setLvl(2);
@@ -79,13 +87,10 @@ export default function FillInTheGaps() {
     }
   }
 
-  const playAudio = async () => {
-    const { sound } = await Audio.Sound.createAsync({ uri: audio });
-    await sound.playAsync();
-    setAudio("");
-  };
-
-
+  /**
+   * Función que utilizamos para llamar a la api
+   * @param {*} word la palabra que queremos para buscar.
+   */
   const data = async (adjective) => {
     const response = await getData(
       `https://api.dictionaryapi.dev/api/v2/entries/en/${adjective}`

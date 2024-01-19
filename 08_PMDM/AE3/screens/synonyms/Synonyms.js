@@ -1,7 +1,7 @@
 import { TouchableOpacity, Text, View } from 'react-native';
 import synonyms from '../../services/data/synonyms.json';
-import { Audio } from "expo-av";
 import getData from "../../services/Services";
+import playAudio from '../../services/PlayAudio';
 import getRandomNum from '../../services/RandomNumber';
 import { useState, useEffect } from 'react';
 
@@ -45,9 +45,13 @@ export default function Synonyms() {
   }, [gameStart]);
 
   useEffect(() => {
-    if (audio !== "") playAudio();
+    if (audio !== "") playAudio(audio); setAudio("");
   }, [audio]);
 
+  /**
+   * Función que utilizamos para iniciar el juego.
+   * @param {*} lvl le pasamos el parametro que indica en el nivel que nos encontramos para que adquiera la información de un archivo .json u otro.
+   */
   const initGame = async (lvl) => {
     let numRandom = 0;
     let tempArray = [];
@@ -62,7 +66,6 @@ export default function Synonyms() {
       })
       setWords(auxArr);
       let selec = await dataSynonyms(lvlOne[numRandom])
-      console.log(selec, lvlOne[numRandom])
       setSelectedWord(selec);
       dataAudio(lvlOne[numRandom]);
     }
@@ -76,7 +79,6 @@ export default function Synonyms() {
       })
       setWords(auxArr);
       let selec = await dataSynonyms(lvlTwo[numRandom])
-      console.log(selec, lvlTwo[numRandom])
       setSelectedWord(selec);
       dataAudio(lvlTwo[numRandom]);
     }
@@ -94,13 +96,11 @@ export default function Synonyms() {
     }
   }
 
-  const playAudio = async () => {
-    const { sound } = await Audio.Sound.createAsync({ uri: audio });
-    await sound.playAsync();
-    setAudio("");
-  };
-
-
+  /**
+   * Función que utilizamos para hacer una petición a la api y coger el sinonimo.
+   * @param {*} word le pasamos la palabra de la que queremos coger el sinonimo
+   * @returns devolvemos el sinonimo dado por la api
+   */
   const dataSynonyms = async (word) => {
     const response = await getData(
       `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
@@ -108,6 +108,10 @@ export default function Synonyms() {
     return response[0].meanings[0].synonyms[0];
   };
 
+  /**
+   * Función que utilizamos para adquirir el audio de la palabra seleccionada
+   * @param {*} word le pasamos la palabra seleccionada
+   */
   const dataAudio = async (word) => {
     const response = await getData(
       `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`

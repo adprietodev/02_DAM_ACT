@@ -1,9 +1,11 @@
 import { TouchableOpacity, Text, View } from 'react-native';
 import { useState, useEffect } from 'react';
-import { Audio } from "expo-av";
 import getData from '../../services/Services';
 import wordsListening from '../../services/data/listening.json';
 import getRandomNum from '../../services/RandomNumber';
+import shuffle from '../../services/Shuffle';
+import playAudio from '../../services/PlayAudio';
+
 
 export default function Listening() {
 
@@ -37,7 +39,7 @@ export default function Listening() {
   }, [startShuffle])
 
   useEffect(() => {
-    if (audio !== "") playAudio();
+    if (audio !== "") playAudio(audio); setAudio("");
   }, [audio]);
 
   useEffect(() => {
@@ -47,6 +49,10 @@ export default function Listening() {
     }
   }, [fails]);
 
+  /**
+   * Función que utilizamos para iniciar el juego.
+   * @param {*} lvl le pasamos el parametro que indica en el nivel que nos encontramos para que adquiera la información de un archivo .json u otro.
+   */
   const initGame = (lvl) => {
     let numRandom = 0;
     let tempArray = [];
@@ -88,6 +94,10 @@ export default function Listening() {
     setStartShuffle(true);
   };
 
+
+  /**
+   * Función que utilizamos para barajar los botones durante 3 segundos.
+   */
   const moveBtns = () => {
     let contador = 0;
     const interval = 100;
@@ -98,12 +108,9 @@ export default function Listening() {
       const numRows = shuffledArray.length;
       const numCols = shuffledArray[0].length;
 
-      const flattenArray = shuffledArray.flat(); // Convertimos la matriz en un array plano
+      let flattenArray = shuffledArray.flat(); // Convertimos la matriz en un array plano
 
-      for (let i = flattenArray.length - 1; i > 0; i--) {
-        const j = getRandomNum((i + 1));
-        [flattenArray[i], flattenArray[j]] = [flattenArray[j], flattenArray[i]];
-      }
+      flattenArray = shuffle(flattenArray);
 
       // Restauramos la forma original de la matriz
       shuffledArray = [];
@@ -124,6 +131,10 @@ export default function Listening() {
 
   };
 
+  /**
+   * Función que utilizamos para comparar la palabra con la que hemos echo clic con la escuchada.
+   * @param {*} word le pasamos la palabra en la que hemos echo clic.
+   */
   const compareWordSound = (word) => {
     if (word !== "Try Again") {
       if (word === selectedWord && lvl === 1) {
@@ -139,18 +150,16 @@ export default function Listening() {
 
   }
 
+  /**
+   * Función que utilizamos para llamar a la api
+   * @param {*} word la palabra que queremos para buscar.
+   */
   const data = async (word) => {
     const response = await getData(
       `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
     );
     setAudio(response[0].phonetics[0].audio);
     setSelectedWord(word);
-  };
-
-  const playAudio = async () => {
-    const { sound } = await Audio.Sound.createAsync({ uri: audio });
-    await sound.playAsync();
-    setAudio("");
   };
 
   return (
