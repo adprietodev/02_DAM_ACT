@@ -24,6 +24,7 @@ import es.florida.main.objects.JSONPostFilms;
 import es.florida.main.services.FilterExtension;
 import es.florida.main.services.JSONConverter;
 
+
 @RestController
 public class Controller {
 	
@@ -36,12 +37,22 @@ public class Controller {
 		authorizedUsersList = new ArrayList();
 	}
 	
+	
+	/**
+	 * Metodo que utilizamos para coger el nombre de los archivos y guardarlos.
+	 */
 	private void getFiles() {
 		File dir = new File("pelis");
 		files = dir.list(new FilterExtension(".txt"));
 		Arrays.sort(files);
 	}
 	
+	
+	/**
+	 * Metodo que utilizamos para coger el contenido de las peliculas, en caso de coger todos los datos o solo una id hacemos una cosa u otra
+	 * @param strId es el id que estamos buscando en caso de ser todos sera (all)
+	 * @return retornamos el JSON en string para mostrar por pantalla
+	 */
 	@GetMapping("/APIpelis/t")
 	String getPelis(@RequestParam(value="id") String strId) {
 		getFiles();
@@ -65,6 +76,11 @@ public class Controller {
 		
 	}
 	
+	/**
+	 * Metodo que utilizamos para añadir nuevas reseñas en la pelicula.
+	 * @param cuerpoPeticion
+	 * @return
+	 */
 	@PostMapping("/APIpelis/nuevaResenya")
 	ResponseEntity<Object> newReview(@RequestBody String cuerpoPeticion){
 		
@@ -91,6 +107,12 @@ public class Controller {
 		
 	}
 	
+	
+	/**
+	 * Metodo que utilizamos para generar una nueva pelicula.
+	 * @param cuerpoPeticion
+	 * @return
+	 */
 	@PostMapping("/APIpelis/nuevaPeli")
 	ResponseEntity<Object> newFilm(@RequestBody String cuerpoPeticion){
 		
@@ -112,6 +134,11 @@ public class Controller {
 		
 	}
 	
+	/**
+	 * Metodo que utilizamos para añadir un nuevo usuario en la lista de autorizados
+	 * @param cuerpoPeticion
+	 * @return
+	 */
 	@PostMapping("/APIpelis/nuevoUsuario")
 	ResponseEntity<Object> newUser(@RequestBody String cuerpoPeticion){
 		JSONConverter jsonConverter = new JSONConverter();
@@ -127,6 +154,13 @@ public class Controller {
 		
 	}
 	
+	
+	/**
+	 * Metodo que urilizamos para escribir la reseña dentro de la pelicula.
+	 * @param postJSON le pasamos el objeto creado con los datos del post para escribir la reseña
+	 * @param authorized le pasamos si el usuario puesto esta autorizado o no.
+	 * @return retornamos si se ha realizado.
+	 */
 	private boolean writeReview(JSONPostFilms postJSON, boolean authorized) {
 		
 		File file = new File("pelis/"+postJSON.getId()+".txt");
@@ -145,6 +179,14 @@ public class Controller {
 		}
 	}
 	
+	
+	
+	/**
+	 * Metodo que utilizamos para añadir peliculas
+	 * @param film el nombre de la pelicula que queremos añadir
+	 * @param authorized si el usuario esta autorizado.
+	 * @return retornamos si ha sido posible o no
+	 */
 	private boolean addFilm(String film, boolean authorized) {
 		getFiles();
 		
@@ -176,6 +218,11 @@ public class Controller {
 		
 	}
 	
+	/**
+	 * Metodo que utilizamos para añadir usuarios en la lista de autorizados.
+	 * @param user usuario que queremos añadir
+	 * @return retornamos si ha sido posible o no
+	 */
 	private boolean addAuthorizedUsers(String user) {
 		authorizedUsersList = authorizedUsers();
 		authorizedUsersList.add(user);
@@ -191,6 +238,11 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * 
+	 * Metodo que utilizamos para generar la lista de autorizados
+	 * @return devolvemos lista de usuarios autorizados.
+	 */
 	private List<String> authorizedUsers(){
 		
 		List<String> auxList = new ArrayList();

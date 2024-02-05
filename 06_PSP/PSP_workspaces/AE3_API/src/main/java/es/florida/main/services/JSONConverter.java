@@ -23,6 +23,13 @@ public class JSONConverter {
 		this.files = files;
 	}
 	
+	
+	/**
+	 * Metodo que utilizamos para leer los JSON
+	 * @param fileJSON le pasamos el JSON en formato string
+	 * @param post le pasamos que tipo de post se esta haciendo.
+	 * @return
+	 */
 	public JSONPostFilms readJSON(String fileJSON, String post) {
 		System.out.println(fileJSON);
 		JSONObject jsonObject = new JSONObject(fileJSON);
@@ -52,6 +59,11 @@ public class JSONConverter {
 		return postJSON;
 	}
 
+	
+	/**
+	 * Metodo que utilizamos para coger los datos de los archivos y pasarlos a un formato json.
+	 * @return retornamos el json en formato string
+	 */
 	public String getAllData() {
 		try {
 			JSONObject jsonObject = new JSONObject();
@@ -86,6 +98,12 @@ public class JSONConverter {
 		}
 	}
 
+	
+	/**
+	 * Metodo que utilizamos para leer el contenido de un solo archivo y pasarlo a json.
+	 * @param nameFile le pasamos el nombre del archivo
+	 * @return retornamos el json en formato string
+	 */
 	public String getOneTitle(String nameFile) {
 		try {
 			JSONObject jsonObject = new JSONObject();
@@ -109,6 +127,13 @@ public class JSONConverter {
 		}
 	}
 
+	
+	/**
+	 * Metodo que utilizamos para convertir lo que leemos de los archivos en una estructura correcta de json.
+	 * @param id pasamos id de la pelicula
+	 * @param lines pasamos las lineas que contiene el archivo
+	 * @return retornamos un JSONObject.
+	 */
 	private JSONObject convertToJSON(String id, List<String> lines) {
 		String title = "";
 
@@ -120,8 +145,8 @@ public class JSONConverter {
 
 		JSONArray reviewArray = new JSONArray();
 
-		if (lines.size() > 1) {
-			for (int i = 2; i < lines.size(); i++) {
+		if (lines.size() >= 1) {
+			for (int i = 1; i < lines.size(); i++) {
 				reviewArray.put(lines.get(i));
 			}
 		}
