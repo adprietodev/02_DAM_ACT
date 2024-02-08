@@ -8,12 +8,9 @@
 import React, {Component} from 'react';
 import { FlatList, ImageBackground } from 'react-native';
 import {
-  SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
 } from 'react-native';
 
@@ -67,7 +64,8 @@ class App extends Component {
         </View>
         <ScrollView>
           <FlatList data={this.state.marcas} keyExtractor={(item, index) => index.toString()} renderItem={({item}) => {
-            return(<View>
+            return(
+            <View>
               <ImageBackground source={item.img}  style={[styles.image, { backgroundColor: item.backgroundColor }]} resizeMode='contain'>
                 <Text style={styles.text}>{item.nombre}</Text>
               </ImageBackground>
