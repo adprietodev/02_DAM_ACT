@@ -1,7 +1,6 @@
 package es.florida.main.services;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +8,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import es.florida.main.objects.*;
+import es.florida.main.objects.JSONPostFilms;
 
 public class JSONConverter {
 
@@ -22,8 +21,8 @@ public class JSONConverter {
 	public JSONConverter(String[] files) {
 		this.files = files;
 	}
-	
-	
+
+
 	/**
 	 * Metodo que utilizamos para leer los JSON
 	 * @param fileJSON le pasamos el JSON en formato string
@@ -34,32 +33,32 @@ public class JSONConverter {
 		System.out.println(fileJSON);
 		JSONObject jsonObject = new JSONObject(fileJSON);
 		JSONPostFilms postJSON = new JSONPostFilms();
-		
+
 		if(post.equals("nuevaResenya")) {
 			String user = jsonObject.getString("usuario");
 			String id = jsonObject.getString("id");
 			String review = jsonObject.getString("resenya");
-			
+
 			postJSON = new JSONPostFilms(user,id,review);
 		}
-		
+
 		if(post.equals("nuevaPeli")) {
 			String user = jsonObject.getString("usuario");
 			String title = jsonObject.getString("titulo");
-			
+
 			postJSON = new JSONPostFilms(user,title);
 		}
-		
+
 		if(post.equals("nuevoUsuario")) {
 			String user = jsonObject.getString("usuario");
-			
+
 			postJSON = new JSONPostFilms(user);
 		}
-		
+
 		return postJSON;
 	}
 
-	
+
 	/**
 	 * Metodo que utilizamos para coger los datos de los archivos y pasarlos a un formato json.
 	 * @return retornamos el json en formato string
@@ -98,7 +97,7 @@ public class JSONConverter {
 		}
 	}
 
-	
+
 	/**
 	 * Metodo que utilizamos para leer el contenido de un solo archivo y pasarlo a json.
 	 * @param nameFile le pasamos el nombre del archivo
@@ -127,7 +126,7 @@ public class JSONConverter {
 		}
 	}
 
-	
+
 	/**
 	 * Metodo que utilizamos para convertir lo que leemos de los archivos en una estructura correcta de json.
 	 * @param id pasamos id de la pelicula
