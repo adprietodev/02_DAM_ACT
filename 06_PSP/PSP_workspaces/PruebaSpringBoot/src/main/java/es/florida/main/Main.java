@@ -17,26 +17,26 @@ public class Main {
 		//SpringApplication.run(Main.class, args);
 		
 		try {
-			System.out.println("Entramos al try");
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://84.127.69.12:3306/biblioteca","adprietodev","2Oa+V96i£[)KE;yz");
-			System.out.println("Pasamos la conexión");
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM titles");
-			System.out.println("Antes del while");
-			while(rs.next()) {
-				System.out.println("Dentro del while");
-				System.out.println(rs.getInt(1));
-				
-				rs.close();
-				stmt.close();
-				con.close();
-			}
-		} catch(Exception e) {
-			System.out.println(e);
+		    System.out.println("Entramos al try");
+		    Class.forName("com.mysql.cj.jdbc.Driver");
+		    Connection con = DriverManager.getConnection("jdbc:mysql://84.127.69.12:3306/biblioteca", "adprietodev", "2Oa+V96i£[)KE;yz");
+		    System.out.println("Pasamos la conexión");
+		    Statement stmt = con.createStatement();
+		    ResultSet rs = stmt.executeQuery("SELECT * FROM titles");
+		    System.out.println("Antes del while");
+		    
+		    while (rs.next()) {
+		        System.out.println("Dentro del while");
+		        System.out.println(rs.getInt(1));
+		    }
+
+		    // Cierre de recursos fuera del bucle
+		    rs.close();
+		    stmt.close();
+		    con.close();
+
+		} catch (Exception e) {
+		    System.out.println(e);
 		}
-		
-
 	}
-
 }

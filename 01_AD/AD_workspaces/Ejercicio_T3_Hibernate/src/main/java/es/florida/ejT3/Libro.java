@@ -9,10 +9,10 @@ public class Libro {
 	private int anyoPublicacion;
 	private String editorial;
 	private int numeroDePaginas;
-	
+
 	public Libro() {
 	}
-	
+
 	public Libro(int idLibros, String titul, String autor, int anyoNacimiento, int anyoPublicacion, String editorial, int numeroDePaginas) {
 		this.idLibros = idLibros;
 		this.titul = titul;
@@ -21,9 +21,9 @@ public class Libro {
 		this.anyoPublicacion = anyoPublicacion;
 		this.editorial = editorial;
 		this.numeroDePaginas = numeroDePaginas;
-		
+
 	}
-	
+
 	public Libro(String titul, String autor, int anyoNacimiento, int anyoPublicacion, String editorial, int numeroDePaginas) {
 		this.titul = titul;
 		this.autor = autor;
@@ -88,5 +88,5 @@ public class Libro {
 	public void setNumeroDePaginas(int numeroDePaginas) {
 		this.numeroDePaginas = numeroDePaginas;
 	}
-	
+
 }

@@ -129,7 +129,7 @@ public class App {
 
 			int id = Integer.parseInt(idString);
 
-			Libro libro = (Libro) session.get(Libro.class, id);
+			Libro libro = session.get(Libro.class, id);
 			if (libro != null) {
 				System.out.println("======================================================");
 				System.out.println("Información libro seleccionado");
@@ -200,7 +200,7 @@ public class App {
 
 			id = Integer.parseInt(idString);
 
-			Libro libro = (Libro) session.get(Libro.class, id);
+			Libro libro = session.get(Libro.class, id);
 			boolean modifying = true;
 
 			while (modifying) {
