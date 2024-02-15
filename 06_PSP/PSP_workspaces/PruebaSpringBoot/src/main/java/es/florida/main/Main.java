@@ -19,7 +19,7 @@ public class Main {
 		try {
 		    System.out.println("Entramos al try");
 		    Class.forName("com.mysql.cj.jdbc.Driver");
-		    Connection con = DriverManager.getConnection("jdbc:mysql://84.127.69.12:3306/biblioteca", "adprietodev", "2Oa+V96i£[)KE;yz");
+		    Connection con = DriverManager.getConnection("jdbc:mysql://84.127.69.12:3306/biblioteca", "adprietodev", "");
 		    System.out.println("Pasamos la conexión");
 		    Statement stmt = con.createStatement();
 		    ResultSet rs = stmt.executeQuery("SELECT * FROM titles");
