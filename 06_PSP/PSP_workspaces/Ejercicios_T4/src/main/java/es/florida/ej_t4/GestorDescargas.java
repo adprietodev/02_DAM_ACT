@@ -64,7 +64,7 @@ public class GestorDescargas {
 //		String fichero = "prueba.txt";
 //		gD.descargarArchivo(url, fichero);
 
-		String urlImg = "https://i.pinimg.com/564x/ee/87/d8/ee87d8be406a16e8649217baa79505c2.jpg";
+		String urlImg = "http://localhost:8080/imagenes/djarii_rabbit.jpeg";
 		String img = "copia-img.png";
 		gD.descargarImagen(urlImg, img);
 

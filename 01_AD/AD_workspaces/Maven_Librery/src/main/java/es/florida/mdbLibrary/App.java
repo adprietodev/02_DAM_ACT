@@ -115,7 +115,7 @@ public class App {
 		MongoCursor<Document> cursor = collection.find(query).iterator();
 
 		JSONObject obj = new JSONObject(cursor.next().toJson());
-		System.out.println("Información del libro.");
+		//System.out.println("Información del libro.");
 		System.out.println("ID Mongo: " + obj.getJSONObject("_id").getString("$oid"));
 		System.out.println("ID: " + obj.getInt("Id"));
 		System.out.println("Titulo: " + obj.getString("Titulo"));

@@ -1,20 +1,30 @@
 package es.florida.main.controller;
 
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
+import org.apache.commons.io.IOUtils;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.florida.main.objects.JSONPostFilms;
@@ -72,7 +82,14 @@ public class Controller {
 		return strJSON;
 
 	}
-
+	
+	@GetMapping(value = "/image")
+	public @ResponseBody byte[] getImage() throws IOException {
+	    InputStream in = getClass()
+	      .getResourceAsStream("imgs/djarii_rabbit.JPG");
+	    return IOUtils.toByteArray(in);
+	}
+	
 	/**
 	 * Metodo que utilizamos para añadir nuevas reseñas en la pelicula.
 	 * @param cuerpoPeticion
