@@ -12,9 +12,6 @@ export default function Screen1() {
 
   const getDataRaM = async () => {
     try {
-      console.log(
-        `https://rickandmortyapi.com/api/episode?page=${currentPage}`
-      );
       const response = await fetch(
         `https://rickandmortyapi.com/api/episode?page=${currentPage}`
       );
